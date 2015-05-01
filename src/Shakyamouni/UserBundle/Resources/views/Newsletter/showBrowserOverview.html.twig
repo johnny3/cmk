@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        {% include 'ShakyamouniUserBundle:Newsletter:newsletterContent.html.twig' with {'pm' : pm, 'newsletterarticles': newsletter_articles, 'sentence':newsletter.sentence, 'manualTitle': newsletter.manualTitle, 'isPmUploadable': newsletter.isPmUploadable, 'footerInfo': footerInfo} %}
+    </body>
+</html>

@@ -1,0 +1,36 @@
+ <page backtop="20mm" backleft="10mm" backright="10mm">
+    {{current_year}}
+    {{date.months[current_month-1]}}
+
+    {% for m, days in dates %}
+        <table>
+            <thead>
+                <tr>
+                    {% for d in date.days %}
+                         <th>{{d|slice(0, 3)}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for d, w in days %}                            
+                        {% if d == 1 and w != 1%}
+                            <td colspan="{{ w-1 }}" class="padding"></td>
+                        {% endif %}
+                        <td>
+                            <div class="relative">
+                                <div class="day">{{ d }}</div>
+                            </div>
+                        </td>
+                        {% if w == 7 %}
+                            </tr><tr>
+                        {% endif %}
+                        {% if loop.last and w != 7 %}           
+                            <td colspan="{{ 7-w }}" class="padding"></td>
+                        {% endif %}
+                    {% endfor %}               
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+</page> 

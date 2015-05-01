@@ -1,0 +1,33 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<article>
+    <fieldset>
+        <legend>Encart</legend>
+        <p class="text"><span class="souligne-gras">Titre:</span> {{entity.title}}</p>
+        <p class="text"><span class="souligne-gras">Sous-titre:</span> {{entity.subtitle}}</p>
+    </fieldset>
+    <p class="text"><span class="souligne-gras">Position:</span> {{entity.position}}</p>
+    <p class="text"><span class="souligne-gras">Encart visible:</span> {{entity.isCaption ? 'oui':'non'}}</p>
+    <time pubdate="{{ entity.createdAt|date('Y-m-dTH:i:s') }}" datetime="{{ entity.createdAt|date('Y-m-dTH:i:s') }}"></time>
+        {% if entity.picture is defined and entity.picture is not null %}
+            {% set filter_picture_size = 'thumbnail_480x180' %}
+            <img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/carrousel/', entity.picture] | join | apply_filter(filter_picture_size)) }}">
+        {% endif %}
+</article>
+<div class="clearfix"></div>
+
+<table class="action-button-table">
+    <tbody>
+        <tr>
+            <td>
+                Actions possibles: <span class="edit"><a href="{{ path('slider_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a></span>
+            </td>
+            <td>
+                <a href="{{ path('slider_admin_delete', { 'id': entity.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %} 

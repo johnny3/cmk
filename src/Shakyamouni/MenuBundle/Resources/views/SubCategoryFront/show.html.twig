@@ -1,0 +1,48 @@
+{% extends "ShakyamouniSiteBundle::layout.html.twig" %}
+
+{% block article_body %}
+        <div class="page-header clearfix" style="margin: 0 0 30px; padding: 0 0 15px 0">
+                <h1>{{ subCategory.title }}</h1>
+        </div><!--/ .page-header-->  
+
+    <section id="main" class="twelve columns">
+        
+        {% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : subCategory.category, 'entryClass': false}  %} {# affiche texte de la catégorie à laquelle est rattachée la sous catégorie. Ex: lE CENTRE, COURS HEBDO, etc. #}
+
+        {% if subCategory.isVisible is defined and subCategory.isVisible is not null and subCategory.isVisible %}  
+            {% if subCategory.articles is defined and subCategory.articles is not empty %}
+                {% set subcategoryHasArticles = true %}
+                {#<div class="entry-title">
+                      <h2 class="title">{{ subCategory.title }}</h2>
+                </div><!--/ .entry-title-->#}
+            {% endif %}
+
+            {% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : subCategory, 'entryClass': false}  %} {# affiche texte de la sous catégorie. Ex: le centre, L'enseignant du centre, etc. #}
+
+            {% if subCategory.slideshow is not null %}
+            <div id="slideshow">
+                <ul>
+                    {% for picture in subCategory.slideshow.pictures %}
+                        <li>
+                            <a title="{{ picture.title }}" href="{{ asset(['uploads/pictureSlideshow/', picture.picture] | join) }}" class="zoombox zgallery{{subCategory.slideshow.id}}">
+                                <img alt="{{ picture.title }}" src="{{ asset(['uploads/pictureSlideshow/', picture.picture] | join | apply_filter('thumbnail_87x113')) }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                <ul>
+            </div>
+            {% endif %}
+
+            {% if subcategoryHasArticles is defined and subcategoryHasArticles == true %}  
+                <div class="articles">
+                    {{ render(controller('ShakyamouniMenuBundle:SubCategoryFront:articlesWithPosition', {'subcategory_slug': subCategory.slug})) }}
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="entry-body">
+                <p>{{ 'general.private_article'|trans }}</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

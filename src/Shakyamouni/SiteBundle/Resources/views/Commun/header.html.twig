@@ -1,0 +1,110 @@
+<header id="header">
+
+    <div class="container">
+
+        <div class="eight columns">
+
+            <div id="logo">
+                <a href="{{ path('homepage') }}"><img style="width:80%" src="{{ asset(['uploads/logo/Logo_CBKS_CMK.png'] | join ) }}"  alt="Centre Bouddhiste Kadampa Shakyamouni"></a>
+            </div><!--/ #logo-->
+
+        </div><!--/ .columns-->
+
+        <div class="eight columns">
+
+            <div class="widget widget_contacts">
+
+                <div class="vcard clearfix">
+
+                    <p class="top-phone"><span>{{ headerInfo.phoneNumber }}</span></p>
+
+                </div><!--/ .vcard-->
+
+                <div class="clear"></div>
+
+                <ul class="social-icons subcription_ul">
+                    <li class="subscription_link_li"><a href="#footer" id="subscription_link_span" data-href="{{ path('subscription_popup') }}">{{ 'header.newsletter_subscription'|trans }}</a></li>
+                    <li class="facebook"><a href="{{ headerInfo.facebook }}" target="_blank">Facebook</a></li>
+                </ul><!--/ .social-icons -->	
+
+            </div>
+
+        </div><!--/ .columns-->
+
+        <div class="clear"></div>
+
+        {{ render(controller('ShakyamouniMenuBundle:Menu:menu')) }}
+
+    </div><!--/ .container--> 
+
+</header><!--/ #header-->
+
+<script type="text/javascript">
+   /* $(document).ready(function () {
+        var htmlSubscriptionlinkLi = $(".subscription_link_li");
+        var uri = htmlSubscriptionlinkLi.find('#subscription_link_span').data('href');
+        var replacementLink = "<span id='subscription_link_span' data-href='" + uri + "'>S'inscrire à la newsletter</span>";
+        htmlSubscriptionlinkLi.html(replacementLink);
+        
+        $('#subscription_link_span').on('click', function (event) {
+            $.ajax({
+                url: $(this).data('href'),
+                context: document.body,
+                success: function (response) {
+                    $.colorbox({
+                        html: response,
+                        transition: 'none',
+                        onComplete: function () {
+                            $('.subscription-newsletter-form').on('submit', function (e) {
+                                e.preventDefault();
+                                if (isValidEmail($('#shakyamouni_userbundle_newslettersubscriberpopuptype_email').val())) {
+                                    $.ajax({
+                                        url: "{{ path('newslettersubscriber_ajax_create') }}",
+                                        context: document.body,
+                                        type: "POST",
+                                        data: {
+                                            name: $('#shakyamouni_userbundle_newslettersubscriberpopuptype_name').val(),
+                                            email: $('#shakyamouni_userbundle_newslettersubscriberpopuptype_email').val()
+                                        },
+                                        beforeSend: function () {
+                                            var elt = $('.subscription-popin');
+                                            $(elt).find('#response_ajax').html('');
+                                            $(elt).find('#loader_ajax').show('');
+                                        },
+                                        complete: function () {
+                                            var elt = $('.subscription-popin');
+                                            $(elt).find('#loader_ajax').hide();
+                                        },
+                                        success: function (response) {
+                                            var html = '<div class="subscription-popin"><h3 class="title padded-multiline bg-red">Inscription</h3>'
+                                                    + '<div class="popin-content"><br><p>' + response + '</p><br></div></div>';
+                                            
+                                            $.colorbox({
+                                                html: html,
+                                                transition: 'none'
+                                            });
+                                        },
+                                        error: function () {
+                                            var html = '<div class="subscription-popin"><h3 class="title padded-multiline bg-red">Inscription</h3>'
+                                                    + '<div class="popin-content"><br><p>Une erreur interne est survenue.</p><br></div></div>';
+                                            $.colorbox({
+                                                html: html,
+                                                transition: 'none'
+                                            });
+                                        }
+                                    });
+                                }
+                                else {
+                                    $('#cboxLoadedContent').css({'height': '205px'});
+                                    var elt = $('.subscription-popin');
+                                    var msg = msgValidEmail($('#shakyamouni_userbundle_newslettersubscriberpopuptype_email').val());
+                                    elt.find('#response_ajax').html(msg);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    }); */
+</script>

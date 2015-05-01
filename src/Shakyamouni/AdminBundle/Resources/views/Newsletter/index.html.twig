@@ -1,0 +1,31 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Créé le</th>
+            <th>Mis à jour le</th>
+            <th>Objet du mail</th>
+            <th>Pm</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{% if entity.createdAt %}{{ entity.createdAt|date('d-m-Y H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d-m-Y H:i:s') }}{% endif %}</td>
+            <td>{{ entity.mailObject }}</td>
+            <td>{{ entity.pm }}</td>
+            <td>
+                <a href="{{ path('newsletter_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                <a href="{{ path('newsletter_admin_show', { 'id': entity.id }) }}" title="Show"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/eye-icon.png') }}" alt="Show" /></a>
+                {#<a href="{{ path('newsletter_admin_delete', { 'id': entity.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a>#} 
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 

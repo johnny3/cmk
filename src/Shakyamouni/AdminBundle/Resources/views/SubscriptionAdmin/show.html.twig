@@ -1,0 +1,75 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<h1>Subscription</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Url du formulaire de réservation</th>
+            <td>{{ 'http://' ~ app.request.host ~ path('subscription_show', { 'id': entity.id }) }}</td>
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Sous titre</th>
+            <td>{{ entity.subtitle }}</td>
+        </tr>
+        <tr>
+            <th>Plein tarif</th>
+            <td>{{ entity.maxPrice }} €</td>
+        </tr>
+        {% if entity.mediumPrice is defined and entity.mediumPrice is not null %}
+            <tr>
+                <th>Tarif réduit</th>
+                <td>{{ entity.mediumPrice }}€</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>Tarif PF</th>
+            <td>{{ entity.lowPrice }} €</td>
+        </tr>
+        <tr>
+            <th>Pourcentage des arrhes</th>
+            <td>{{ entity.percentage }} %</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="action-button-table" style="width:270px">
+    <tbody>
+        <tr>
+            <td>
+                Actions possibles: <span class="edit"><a href="{{ path('subscription_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a></span>
+            </td>
+            <td>
+                <a href="{{ path('subscription_admin_delete', { 'id': entity.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+            <td>
+                <a class="button" href="{{ path('subscription_show', { 'id': entity.id }) }}" title="Aperçu" target="_blank">Aperçu</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<h3>Personnes ayant payé:</h3>
+
+<table class="record_properties">
+    <tbody>
+        {% for subscriber in subscribers %}
+            <tr>
+                <td>{{ subscriber.lastname }} {{ subscriber.firstname }} {% if subscriber.cellphone is not null %}({{subscriber.cellphone}}){% endif %}</td>
+                <td>{{ subscriber.email }}</td>
+                <td>{{ subscriber.knowledge }}</td>
+                <td>{{ subscriber.additionnalInformation }}</td>
+                <td>{{ subscriber.price }} €</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %} 

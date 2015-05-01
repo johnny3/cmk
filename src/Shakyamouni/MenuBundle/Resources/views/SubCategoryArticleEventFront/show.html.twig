@@ -1,0 +1,9 @@
+{% extends "ShakyamouniSiteBundle::layout.html.twig" %}
+
+{% block article_body %}
+   {% if articlesEvent is defined and articlesEvent is not empty %}  
+        {% for event in articlesEvent %}
+            {% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : event} %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

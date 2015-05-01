@@ -1,0 +1,59 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('subscription_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+    <div id="shakyamouni_adminbundle_subscriptiontype">
+            <p>
+                {{ form_label(edit_form.title, 'Titre') }}             
+                {{ form_widget(edit_form.title, { 'attr': {'class': 'text-input large-input'} }) }}  {% if form_errors(edit_form.title) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.title) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.subtitle, 'Sous-titre') }}
+                {{ form_widget(edit_form.subtitle, { 'attr': {'class': 'text-input large-input'} })  }} {% if form_errors(edit_form.subtitle) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.subtitle) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.maxPrice, 'Plein tarif (ne pas mettre €)') }}
+                {{ form_widget(edit_form.maxPrice, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(edit_form.maxPrice) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.maxPrice) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.mediumPrice, 'Tarif réduit (ne pas mettre €. Vous pouvez laisser cette valeur vide si pas de tarif réduit.)') }}
+                {{ form_widget(edit_form.mediumPrice, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(edit_form.mediumPrice) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.mediumPrice) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.lowPrice, 'Tarif PF (ne pas mettre €. Vous pouvez laisser cette valeur vide si pas de tarif spécial PF.)') }}
+                {{ form_widget(edit_form.lowPrice, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(edit_form.lowPrice) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.lowPrice) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.percentage, 'Pourcentage des arrhes (ne pas mettre %)') }}
+                {{ form_widget(edit_form.percentage, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(edit_form.percentage) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.percentage) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.event, 'Evénements') }}             
+                {{ form_widget(edit_form.event, { 'attr': {'class': 'medium-input'} }) }}  {% if form_errors(edit_form.event) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.event) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.articleevent, 'Article lié à un événement') }}             
+                {{ form_widget(edit_form.articleevent, { 'attr': {'class': 'medium-input'} }) }}  {% if form_errors(edit_form.articleevent) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.articleevent) }}</span> {% endif %}
+            </p>
+    </div>
+    {{ form_rest(edit_form) }}
+    <p>
+        <button class="button" type="submit">Mettre à jour</button>
+    </p>
+</form>
+
+{% endblock %}

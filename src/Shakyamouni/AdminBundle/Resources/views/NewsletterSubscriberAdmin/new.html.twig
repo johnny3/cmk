@@ -1,0 +1,37 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+
+<form action="{{ path('newslettersubscriber_admin_create')}}" method="post" {{ form_enctype(form) }} novalidate>
+    <div id="shakyamouni_userbundle_newslettersubscribertype">
+        <p>
+            {{ form_label(form.name, 'Nom') }}             
+            {{ form_widget(form.name, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(form.name) %} <span class="input-notification error png_bg">{{ form_errors(form.name) }}</span> {% endif %}
+        </p>
+        <p>
+            {{ form_label(form.email, 'Email') }}             
+            {{ form_widget(form.email, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(form.email) %} <span class="input-notification error png_bg">{{ form_errors(form.email) }}</span> {% endif %}
+        </p>
+        <p>
+            {{ form_label(form.town, 'Ville') }}             
+            {{ form_widget(form.town, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(form.town) %} <span class="input-notification error png_bg">{{ form_errors(form.town) }}</span> {% endif %}
+        </p>
+        <p>
+            {{ form_label(form.is_active, 'Est abonné') }}             
+            {{ form_widget(form.is_active) }}  {% if form_errors(form.is_active) %} <span class="input-notification error png_bg">{{ form_errors(form.is_active) }}</span> {% endif %}
+        </p>
+    </div>
+    {{ form_rest(form) }}
+    <p>
+        <button class="button" type="submit">Valider</button>
+    </p>
+</form>
+
+{% endblock %}

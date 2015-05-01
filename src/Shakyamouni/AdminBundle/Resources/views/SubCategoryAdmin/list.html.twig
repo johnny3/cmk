@@ -1,0 +1,6 @@
+{% for category in entities %}
+    <li class="li-category {%if loop.first %}no-margin-top{% endif %}"><span class="souligne-gras">{{ category.title|upper }}</span></li>
+    {% if category.subCategories is defined and category.subCategories is not empty %}  
+        {{ render(controller('ShakyamouniAdminBundle:SubCategoryAdmin:subCategoriesByCategoryWithPosition', { 'category_slug': category.slug })) }}
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,31 @@
+{% if subCategories is defined and subCategories is not empty %}
+    <ul>
+        {% for subCategory in subCategories %}
+                {% if subCategory.isVisible is defined and subCategory.isVisible is not null and subCategory.isVisible %}
+                    {% if subCategory.articles is defined and subCategory.articles is not empty and subCategory.articles|length > 0 %}
+                       {% set counter = 0 %}
+                       {% for article in subCategory.articles %}
+                            {% if article.isVisible is defined and article.isVisible %}
+                                {% set counter = counter + 1 %}
+                            {% endif %}
+                       {% endfor %}
+                    {% else %}
+                       {% set counter = 1 %} {# pas de sous articles, donc on affiche la sous catégorie si elle est visible #}
+                    {% endif %}
+
+                    {% if counter is defined and counter > 0 %}
+                      <li>
+                        {% if subCategory.articles is defined and subCategory.articles is not empty and subCategory.articles|length > 0 %}
+                            <strong>{{ subCategory.title }}</strong>
+                           
+                           {{ render(controller('ShakyamouniMenuBundle:SubCategoryFront:articlesBySubCategoryWithPosition', {'subcategory_slug': subCategory.slug})) }} 
+                              
+                        {% else %}
+                            <a href="{{ path('subcategory_show', { 'category_slug': subCategory.category.slug, 'subcategory_slug': subCategory.slug }) }}">{{ subCategory.title }}</a>
+                        {% endif %}
+                      </li>
+                    {% endif %}
+                {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

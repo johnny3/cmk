@@ -1,0 +1,21 @@
+<div class="subscription-popin">
+    <h3 class="title padded-multiline bg-red">Inscription</h3>
+    <form class="subscription-newsletter-form" method="post" action="#" {{ form_enctype(form) }} novalidate>
+        <div>
+            {{ form_widget(form.name) }} {% if form_errors(form.name) %} <span class="input-notification">{{ form_errors(form.name) }}</span> {% endif %}
+        </div>
+        <div>
+            {{ form_widget(form.email) }} {% if form_errors(form.email) %} <span class="input-notification">{{ form_errors(form.email) }}</span> {% endif %}
+        </div>
+        
+        <span id="response_ajax"></span>
+        <span id="loader_ajax" style="display:none"><img src="{{ asset('bundles/shakyamounisite/images/ajax-loader.gif') }}"></span>
+        
+        <footer>
+            <input id="shakyamouni_userbundle_newslettersubscribertype_click" type="submit" name="submit" value="Envoyer" class="bg-red">
+            <br>
+        </footer>
+
+        {{ form_rest(form) }}
+    </form>
+</div>

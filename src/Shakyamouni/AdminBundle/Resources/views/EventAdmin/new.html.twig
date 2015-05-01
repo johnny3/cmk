@@ -1,0 +1,86 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('event_admin_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+    <div id="shakyamouni_sitebundle_eventtype">
+            <p>
+                {{ form_label(form.subCategoryEvent, 'Sous catégorie d\'événements') }}             
+                {{ form_widget(form.subCategoryEvent, { 'attr': {'class': 'medium-input'} }) }}  {% if form_errors(form.subCategoryEvent) %} <span class="input-notification error png_bg">{{ form_errors(form.subCategoryEvent) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.eventDateStart, 'Date de début de l\'événement') }}
+                {{ form_widget(form.eventDateStart, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(form.eventDateStart) %}<span class="input-notification error png_bg">{{ form_errors(form.eventDateStart) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.eventDateEnd, 'Date de fin de l\'événement') }}
+                {{ form_widget(form.eventDateEnd, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(form.eventDateEnd) %}<span class="input-notification error png_bg">{{ form_errors(form.eventDateEnd) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.title, 'Titre') }}
+                {{ form_widget(form.title, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(form.title) %}<span class="input-notification error png_bg">{{ form_errors(form.title) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.chapo, 'Chapô') }}
+                {{ form_widget(form.chapo) }}
+                
+                {% if form_errors(form.chapo) %} <br/> <span class="input-notification error png_bg">{{ form_errors(form.chapo) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.body, 'Corps du texte') }}
+                {{ form_widget(form.body) }}
+                
+                {% if form_errors(form.body) %} <br/> <span class="input-notification error png_bg">{{ form_errors(form.body) }}</span> {% endif %}
+            </p>
+                        
+            <p>
+                {{ form_label(form.reservationLink, 'Lien de réservation') }}
+                {{ form_widget(form.reservationLink, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(form.reservationLink) %}<span class="input-notification error png_bg">{{ form_errors(form.reservationLink) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.isPicture, 'Y a-t-il une image principale?') }}
+                {{ form_widget(form.isPicture) }} {% if form_errors(form.isPicture) %}<span class="input-notification error png_bg">{{ form_errors(form.isPicture) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.file, 'Image') }}
+                {% if entity.picture is defined and entity.picture is not null %}
+                        {% set filter_picture_size = 'thumbnail_200x200' %}
+                        <p><img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/', entity.picture] | join | apply_filter(filter_picture_size)) }}"></p>
+                    {% endif %}
+                {{ form_widget(form.file) }}  {% if form_errors(form.file) %} <span class="input-notification error png_bg">{{ form_errors(form.file) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.pictureSize, 'Taille de l\'image') }}             
+                {{ form_widget(form.pictureSize, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.pictureSize) %} <span class="input-notification error png_bg">{{ form_errors(form.pictureSize) }}</span> {% endif %}
+            </p>
+               
+            <p>
+                {{ form_label(form.isVisible, 'Visible sur le site ?') }}
+                {{ form_widget(form.isVisible) }} {% if form_errors(form.isVisible) %}<span class="input-notification error png_bg">{{ form_errors(form.isVisible) }}</span> {% endif %}
+            </p>
+    </div>
+
+            {{ form_rest(form) }}
+        <p>
+            <button class="button" type="submit">Créer</button>
+        </p>
+</form>
+
+{{ elfinder_tinymce_init4() }}
+{{ tinymce_init() }}
+
+{% endblock %}

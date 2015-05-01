@@ -1,0 +1,14 @@
+<aside id="sidebar" class="four columns">
+    <div class="widget widget_categories">
+        {% if subCategory.category is not defined and category_event is defined %}
+            <h1 class="sidebar-title">{{ category_event.title }}</h1>
+            {{ render(controller('ShakyamouniMenuBundle:SubCategoryEventFront:subCategoriesEventsByCategoryEventWithPosition')) }}
+       
+        {% else %}
+            <h1 class="sidebar-title">{{ subCategory.category.title }}</h1>
+
+            {{ render(controller('ShakyamouniMenuBundle:SubCategoryFront:subCategoriesByCategoryWithPosition', {'category_slug': subCategory.category.slug})) }}
+
+        {% endif %}
+    </div><!--/ .widget-->
+</aside><!--/ #sidebar-->

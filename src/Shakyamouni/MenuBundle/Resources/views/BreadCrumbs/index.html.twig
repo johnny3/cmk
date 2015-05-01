@@ -1,0 +1,16 @@
+<div class="breadcrumbs">
+    <div class="inner">
+        <ul>
+            <li> <a href="{{ path('homepage') }}">Accueil</a></li> >
+            {% if typeCat == 'cat' and uri_array_length == 5 and subCat is not null %}              
+                <li><a href="{{ path('subcategory_show', { 'category_slug': category.slug, 'subcategory_slug': firstVisibleSubCat.slug }) }}">{{ category.title }}</a></li> >
+                <li>{{ subCat.title }}</li>
+            {% elseif typeCat == 'evenements' and uri_array_length == 3 and subCat is not null %}
+                <li><a href="{{ path('subcategoryevent_show', {'subcategory_slug': firstVisibleSubCat.slug }) }}">{{ firstVisibleSubCat.title }}</a></li> >
+                <li>{{ subCat.title }}</li>
+            {% else %}
+                <li>{{ category.title }}</li>
+            {% endif %} 
+        </ul>
+    </div>
+</div>

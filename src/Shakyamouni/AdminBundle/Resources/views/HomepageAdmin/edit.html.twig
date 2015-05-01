@@ -1,0 +1,59 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+<div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('homepage_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+
+    <div id="shakyamouni_sitebundle_homepagetype">
+            <p>
+                {{ form_label(edit_form.title1, 'Titre colonne 1') }}
+                {{ form_widget(edit_form.title1, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(edit_form.title1) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.title1) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.body1, 'Texte colonne 1') }}
+                {{ form_widget(edit_form.body1) }}
+                
+                {% if form_errors(edit_form.body1) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.body1) }}</span> {% endif %}
+            </p>
+            <p>
+                {{ form_label(edit_form.title2, 'Titre colonne 2') }}
+                {{ form_widget(edit_form.title2, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(edit_form.title2) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.title2) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.body2, 'Texte colonne 2') }}
+                {{ form_widget(edit_form.body2) }}
+                
+                {% if form_errors(edit_form.body2) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.body2) }}</span> {% endif %}
+            </p>
+            <p>
+                {{ form_label(edit_form.title3, 'Titre colonne 3') }}
+                {{ form_widget(edit_form.title3, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(edit_form.title3) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.title3) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.body3, 'Texte colonne 3') }}
+                {{ form_widget(edit_form.body3) }}
+                
+                {% if form_errors(edit_form.body3) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.body3) }}</span> {% endif %}
+            </p>
+          </div>
+                {{ form_rest(edit_form) }}
+    
+    
+            <p>
+                <button class="button" type="submit">Mettre à jour</button>
+            </p>
+        </form>
+
+{{ elfinder_tinymce_init4() }}
+{{ tinymce_init() }}
+
+{% endblock %} 

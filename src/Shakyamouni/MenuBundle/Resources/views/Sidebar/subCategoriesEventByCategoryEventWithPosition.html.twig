@@ -1,0 +1,39 @@
+{% if subCategoriesEvent is defined and subCategoriesEvent is not empty %}
+    <ul>
+        {% for subCategory in subCategoriesEvent %}
+            {% if subCategory.isVisible is defined and subCategory.isVisible is not null and subCategory.isVisible %}
+                {% if subCategory.events is defined and subCategory.events is not empty and subCategory.events|length > 0 %}
+                    {% set counter = 0 %}
+                    {% set counterArticleEvents = 0 %}
+                    {% for event in subCategory.events %}
+                         {% if event.isVisible is defined and event.isVisible %}
+                             {% set counter = counter + 1 %}
+                             {% if event.articleevents is defined and event.articleevents is not empty %}
+                                {% for article in event.articleevents %}
+                                    {% if article.isVisible is defined and article.isVisible is not null and article.isVisible %}
+                                        {% set counterArticleEvents = counterArticleEvents + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                             {% endif %}
+                         {% endif %}
+                    {% endfor %}
+                 {% else %}
+                    {% set counter = 1 %} {# pas de sous articles, donc on affiche la sous catégorie si elle est visible #}
+                 {% endif %}
+            
+                {% if counter is defined and counter > 0 %}
+                    <li>
+                        {% if subCategory.events is defined and subCategory.events is not empty %}
+                           {{ subCategory.title }} {# ex: Après-midi à thème, Retraites, Festivals nationaux et internationaux #}
+                           {{ render(controller('ShakyamouniSiteBundle:EventFront:EventsBySubcategoryEventByDate', {'subcategory_slug': subCategory.slug})) }}
+                        {% else %}
+                            {% if subCategory.isVisible is defined and subCategory.isVisible is not null and subCategory.isVisible %}
+                                <a href="{{ path('subcategoryevent_show', { 'subcategory_slug': subCategory.slug }) }}">{{ subCategory.title }}</a>
+                            {% endif %}
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

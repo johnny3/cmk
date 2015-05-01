@@ -1,0 +1,37 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<h1>Category list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Position</th>
+            <th>Type de catégorie</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+            <tr>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.position }}</td>
+                <td>
+                {% if entity.eventCat %} 
+                        Evenement
+                {% elseif entity.contactCat %}
+                        Contact
+                {% elseif entity.calendarCat %}
+                        Calendrier
+                {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('category_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                        <a href="{{ path('category_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+                    </td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

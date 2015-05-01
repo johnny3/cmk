@@ -1,0 +1,80 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('article_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+    <div id="shakyamouni_sitebundle_articletype">
+            <p>
+                {{ form_label(edit_form.position, 'Position') }}
+                {{ form_widget(edit_form.position, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(edit_form.position) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.position) }}</span> {% endif %}
+            </p>
+        
+            <p>
+                {{ form_label(edit_form.subCategory, 'Sous catégorie') }}             
+                {{ form_widget(edit_form.subCategory, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(edit_form.subCategory) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.subCategory) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.title, 'Titre') }}
+                {{ form_widget(edit_form.title, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(edit_form.title) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.title) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.chapo, 'Chapô') }}
+                {{ form_widget(edit_form.chapo) }}
+                
+                {% if form_errors(edit_form.chapo) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.chapo) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.body, 'Corps du texte') }}
+                {{ form_widget(edit_form.body) }}
+                
+                {% if form_errors(edit_form.body) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.body) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.isPicture, 'Y a-t-il une image principale?') }}
+                {{ form_widget(edit_form.isPicture) }} {% if form_errors(edit_form.isPicture) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.isPicture) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.file, 'Image') }}
+                {% if entity.picture is defined and entity.picture is not null %}
+                        {% set filter_picture_size = 'thumbnail_200x200' %}
+                        {% if entity.pictureSize is defined and entity.pictureSize is not null %}
+                           {% set filter_picture_size = 'thumbnail_' ~ entity.pictureSize %}
+                        {% endif %}
+                        <p><img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/', entity.picture] | join | apply_filter(filter_picture_size)) }}"></p>
+                    {% endif %}
+                {{ form_widget(edit_form.file) }}  {% if form_errors(edit_form.file) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.file) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.pictureSize, 'Taille de l\'image') }}             
+                {{ form_widget(edit_form.pictureSize, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(edit_form.pictureSize) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.pictureSize) }}</span> {% endif %}
+            </p>   
+            
+            <p>
+                {{ form_label(edit_form.isVisible, 'Visible sur le site ?') }}
+                (Etat Actuel: {% if entity.isVisible %}OUI{% else %}NON{% endif %})<br/>
+                {{ form_widget(edit_form.isVisible) }} {% if form_errors(edit_form.isVisible) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.isVisible) }}</span> {% endif %}
+            </p>
+    </div>
+
+            {{ form_rest(edit_form) }}
+        <p>
+            <button class="button" type="submit">Mettre à jour</button>
+        </p>
+</form>
+
+{{ elfinder_tinymce_init4() }}
+{{ tinymce_init() }}
+
+{% endblock %}

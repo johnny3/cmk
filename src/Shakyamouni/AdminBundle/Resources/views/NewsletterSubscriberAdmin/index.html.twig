@@ -1,0 +1,45 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<p>Il y a actuellement <strong>{{ numberOfActiveSubscribers }}</strong> personnes actives et <strong>{{numberOfInactiveSubscribers}}</strong> personne(s) inactive(s). (<a href="{{path('export_csv')}}">Export Csv</a>)</p> 
+
+<form action="{{ path('newslettersubscriber_admin')}}" method="post" {{ form_enctype(form) }} novalidate>
+    <div id="shakyamouni_userbundle_newslettersubscribertype">
+        <p>
+            {{ form_label(form.email, 'Email') }}             
+            {{ form_widget(form.email, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(form.email) %} <span class="input-notification error png_bg">{{ form_errors(form.email) }}</span> {% endif %}
+        </p>
+    </div>
+    {{ form_rest(form) }}
+    <p>
+        <button class="button" type="submit">Rechercher</button>
+    </p>
+</form>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Nom/Prénom ou Ville</th>
+            <th>Email</th>
+            <th>Ville</th>
+            <th>Est abonné</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.town }}</td>
+                <td>{{entity.isActive ? 'oui':'non'}}</td>
+                <td>
+                    <a href="{{ path('newslettersubscriber_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                    <a href="{{ path('newslettersubscriber_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a>
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %} 

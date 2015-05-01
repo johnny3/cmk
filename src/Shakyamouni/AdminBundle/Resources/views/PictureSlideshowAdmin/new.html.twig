@@ -1,0 +1,45 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<h1>PictureSlideshow creation</h1>
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('pictures_slideshow_admin_create') }}" method="post" {{ form_enctype(form) }}>
+    <div id="shakyamouni_sitebundle_pictureslideshowtype">
+        <p>
+            {{ form_label(form.position, 'Position') }}
+            {{ form_widget(form.position, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(form.position) %}<span class="input-notification error png_bg">{{ form_errors(form.position) }}</span> {% endif %}
+        </p>
+
+        <p>
+            {{ form_label(form.title, 'Titre') }}
+            {{ form_widget(form.title, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(form.title) %} <span class="input-notification error png_bg">{{ form_errors(form.title) }}</span> {% endif %}
+        </p>
+
+        <p>
+            {{ form_label(form.file, 'Image') }}             
+            {{ form_widget(form.file) }}  {% if form_errors(form.file) %} <span class="input-notification error png_bg">{{ form_errors(form.file) }}</span> {% endif %}
+        </p>
+
+        <p>
+            {{ form_label(form.slideshow, 'Galerie') }}             
+            {{ form_widget(form.slideshow, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.slideshow) %} <span class="input-notification error png_bg">{{ form_errors(form.slideshow) }}</span> {% endif %}
+        </p>
+ {#  
+        <p>
+            {{ form_label(form.pictureSize, 'Taille de l\'image') }}             
+            {{ form_widget(form.pictureSize, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.pictureSize) %} <span class="input-notification error png_bg">{{ form_errors(form.pictureSize) }}</span> {% endif %}
+        </p>  #}
+    </div>
+    {{ form_rest(form) }}
+    <p>
+        <button class="button" type="submit">Créer</button>
+    </p>
+</form>
+{% endblock %}

@@ -1,0 +1,4 @@
+{% for subcategory in entities %}
+    <li class="li-category {%if loop.first %}no-margin-top{% endif %}"><span class="souligne">{{ subcategory.category.title|upper }}</span>/ <br/><span class="souligne-gras">{{ subcategory.title|upper }}</span></li>
+    {{ render(controller('ShakyamouniAdminBundle:ArticleAdmin:articlesBySubCategory', { 'subcategory_slug': subcategory.slug })) }}
+{% endfor %}

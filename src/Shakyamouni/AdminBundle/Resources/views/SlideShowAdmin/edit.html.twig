@@ -1,0 +1,26 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<h1>SlideShow edit</h1>
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('slideshow_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+   <div id="shakyamouni_sitebundle_slideshowtype">
+        <p>
+            {{ form_label(edit_form.title, 'Titre') }}
+            {{ form_widget(edit_form.title, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(edit_form.title) %}<span class="input-notification error png_bg">{{ form_errors(edit_form.title) }}</span> {% endif %}
+        </p>
+    </div>    
+
+    {{ form_rest(edit_form) }}
+    <p>
+        <button class="button" type="submit">Mettre à jour</button>
+    </p>
+</form>
+{% endblock %}

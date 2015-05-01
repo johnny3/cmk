@@ -1,0 +1,37 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+
+<form action="{{ path('newslettersubscriber_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+    <div id="shakyamouni_userbundle_newslettersubscribertype">
+        <p>
+            {{ form_label(edit_form.name, 'Nom') }}             
+            {{ form_widget(edit_form.name, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(edit_form.name) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.name) }}</span> {% endif %}
+        </p>
+        <p>
+            {{ form_label(edit_form.email, 'Email') }}             
+            {{ form_widget(edit_form.email, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(edit_form.email) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.email) }}</span> {% endif %}
+        </p>
+        <p>
+            {{ form_label(edit_form.town, 'Ville') }}             
+            {{ form_widget(edit_form.town, { 'attr': {'class': 'text-input small-input'} }) }}  {% if form_errors(edit_form.town) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.town) }}</span> {% endif %}
+        </p>
+        <p>
+            {{ form_label(edit_form.is_active, 'Est abonné') }}             
+            {{ form_widget(edit_form.is_active) }}  {% if form_errors(edit_form.is_active) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.is_active) }}</span> {% endif %}
+        </p>
+    </div>
+    {{ form_rest(edit_form) }}
+    <p>
+        <button class="button" type="submit">Mettre à jour</button>
+    </p>
+</form>
+
+{% endblock %}

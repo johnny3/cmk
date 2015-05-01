@@ -1,0 +1,5 @@
+{% if subCategories is defined and subCategories is not empty %}
+    {% for subCategory in subCategories %}
+         <li><a href="{{ path('subcategory_admin_show', { 'id': subCategory.id }) }}">{{ subCategory.title }}</a></li>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <p style="text-align:center">Si le bulletin ne s'affiche pas correctement veuillez cliquer <a href="{{ newsletter_browser_link }}">ici</a></p>
+        
+        {% include 'ShakyamouniUserBundle:Newsletter:newsletterContent.html.twig' with {'pm' : pm, 'newsletterarticles': newsletter_articles, 'sentence':newsletter.sentence, 'manualTitle': newsletter.manualTitle, 'isPmUploadable': newsletter.isPmUploadable, 'footerInfo': footerInfo} %}
+        
+       <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table style="width: 700px;" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p style="color: #676767; font-family: Arial; font-size: small;">&nbsp;</p>
+                                            {#<p style="color: #676767; font-family: Arial; font-size: small;">Si vous souhaitez vous d&eacute;sinscrire de ce bulletin mensuel,vous pouvez <a style="color: #676767;" href="{{url_unsubscribe}}">cliquer ici.</a></p>#}
+                                            <p style="color: #676767; font-family: Arial; font-size: small;">Si le bulletin ne s'affiche pas correctement (adresse non visible, par exemple) veuillez cliquer <a href="{{ newsletter_browser_link }}">ici</a></p>
+                                            <p style="color: #676767; font-family: Arial; font-size: small;">Si vous souhaitez vous d&eacute;sinscrire de ce bulletin mensuel,vous pouvez <a style="color: #676767;" href="mailto:info@meditation-paris.org">cliquer ici.</a></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+        </table>
+</body>
+</html>

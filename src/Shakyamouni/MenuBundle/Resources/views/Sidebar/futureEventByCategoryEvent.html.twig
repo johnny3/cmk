@@ -1,0 +1,16 @@
+<ul>
+    {% for event in events %}
+       {% if event.isVisible is defined and event.isVisible is not null and event.isVisible %}
+           {% if event.articleevents is defined and event.articleevents is empty %}
+               <li><a href="{{ path('subcategoryevent_show', { 'subcategory_slug': subcategory_slug }) }}#{{ event.slug }}">{{ event.title }}</a></li>
+           {% else %}
+               <li>
+                   {% if counterArticleEvents is defined and counterArticleEvents > 0 %}
+                       {{ event.title }}
+                       {{ render(controller('ShakyamouniMenuBundle:SubCategoryArticleEventFront:articlesEventsByCategoryEventAndEventWithPosition', {'subcategory_slug': subcategory_slug, 'event_slug': event.slug})) }}
+                   {% endif %}
+               </li>
+           {% endif %}
+       {% endif %}   
+    {% endfor %}
+</ul>

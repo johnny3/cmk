@@ -1,0 +1,24 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<article>
+    <a name="{{ entity.slug }}"></a>
+    <p class="text"><span class="souligne-gras">Position: </span> {{entity.position}}</p>
+    <p class="text"><span class="souligne-gras">Titre: </span>{{entity.title}}</p>
+</article>
+
+<table class="action-button-table">
+    <tbody>
+        <tr>
+            <td>
+                Actions possibles: <span class="edit"><a href="{{ path('subcategoryevent_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a></span>
+            </td>
+            <td>
+                <a href="{{ path('subcategoryevent_admin_delete', { 'id': entity.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %} 

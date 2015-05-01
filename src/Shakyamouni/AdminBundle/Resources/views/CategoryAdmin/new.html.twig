@@ -1,0 +1,83 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<h1>Category creation</h1>
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('category_admin_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+    <div id="shakyamouni_sitebundle_categorytype">
+            <p>
+                {{ form_label(form.position, 'Position') }}
+                {{ form_widget(form.position, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(form.position) %}<span class="input-notification error png_bg">{{ form_errors(form.position) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.title, 'Titre') }}
+                {{ form_widget(form.title, { 'attr': {'class': 'text-input medium-input'} })  }} {% if form_errors(form.title) %}<span class="input-notification error png_bg">{{ form_errors(form.title) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.chapo, 'Chapô') }}
+                {{ form_widget(form.chapo) }}
+                
+                {% if form_errors(form.chapo) %} <br/> <span class="input-notification error png_bg">{{ form_errors(form.chapo) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.body, 'Corps du texte') }}
+                {{ form_widget(form.body) }}
+                
+                {% if form_errors(form.body) %} <br/> <span class="input-notification error png_bg">{{ form_errors(form.body) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.isPicture, 'Y a-t-il une image principale?') }}
+                {{ form_widget(form.isPicture) }} {% if form_errors(form.isPicture) %}<span class="input-notification error png_bg">{{ form_errors(form.isPicture) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.file, 'Image') }}
+                {% if entity.picture is defined and entity.picture is not null %}
+                        {% set filter_picture_size = 'thumbnail_200x200' %}
+                        <p><img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/', entity.picture] | join | apply_filter(filter_picture_size)) }}"></p>
+                    {% endif %}
+                {{ form_widget(form.file) }}  {% if form_errors(form.file) %} <span class="input-notification error png_bg">{{ form_errors(form.file) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.pictureSize, 'Taille de l\'image') }}             
+                {{ form_widget(form.pictureSize, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.pictureSize) %} <span class="input-notification error png_bg">{{ form_errors(form.pictureSize) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.eventCat, 'Catégorie de type événements ?') }}
+                {{ form_widget(form.eventCat) }} {% if form_errors(form.eventCat) %}<span class="input-notification error png_bg">{{ form_errors(form.eventCat) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.contactCat, 'Catégorie de type formulaire de contact ?') }}
+                {{ form_widget(form.contactCat) }} {% if form_errors(form.contactCat) %}<span class="input-notification error png_bg">{{ form_errors(form.contactCat) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.calendarCat, 'Catégorie de type calendrier ?') }}
+                {{ form_widget(form.calendarCat) }} {% if form_errors(form.calendarCat) %}<span class="input-notification error png_bg">{{ form_errors(form.calendarCat) }}</span> {% endif %}
+            </p>
+    </div>
+
+            {{ form_rest(form) }}
+        <p>
+            <button class="button" type="submit">Créer</button>
+        </p>
+</form>
+
+{{ elfinder_tinymce_init4() }}
+{{ tinymce_init() }}
+
+{% endblock %}

@@ -1,0 +1,4 @@
+{% for event in events %}
+    <li class="li-category {%if loop.first %}no-margin-top{% endif %}"><span class="souligne-gras">{{ event.title|upper }}</span></li>
+    {{ render(controller('ShakyamouniAdminBundle:ArticleEventAdmin:articleEventsByEvent', { 'event_slug': event.slug })) }}
+{% endfor %}

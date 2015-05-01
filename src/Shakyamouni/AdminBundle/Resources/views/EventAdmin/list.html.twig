@@ -1,0 +1,13 @@
+{% for subcategory in entities %}
+    {% set displaySubcategoryEvent = false %}
+    {% for event in subcategory.events %}
+        {% if event.isVisible and (event.eventDateEnd|date('Y-m-d') > 'now'|date('Y-m-d')) %}
+            {% set displaySubcategoryEvent = true %}
+        {% endif %}
+    {% endfor %}
+    
+    {% if displaySubcategoryEvent %}
+        <li class="li-category {%if loop.first %}no-margin-top{% endif %}"><span class="souligne-gras">{{ subcategory.title|upper }}</span></li>
+        {{ render(controller('ShakyamouniAdminBundle:EventAdmin:eventsBySubCategoryEvent', { 'subcategory_slug': subcategory.slug })) }}
+    {% endif %}
+{% endfor %}

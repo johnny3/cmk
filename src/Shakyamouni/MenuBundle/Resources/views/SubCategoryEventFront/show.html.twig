@@ -1,0 +1,25 @@
+{% extends "ShakyamouniSiteBundle::layout.html.twig" %}
+
+{% block article_body %}
+
+    <div class="page-header clearfix" style="margin: 0 0 30px; padding: 0 0 15px 0">
+      <h1>{{ subCategory.title }}</h1>
+    </div><!--/ .page-header-->
+    
+   <section id="main" class="twelve columns">   
+       
+        {% if subCategory_events is defined and subCategory_events is not empty %}  
+                {% for event in subCategory_events %}
+                   {% if event.isVisible %}
+                        {#% if event.articleevents is defined and event.articleevents is empty %#}
+                             <div class="box">
+                                 {% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : event, 'entryClass': true} %}
+                             </div>
+                        {#% endif %#}
+                   {% endif %}
+                {% endfor %}
+         {% else %}
+             <p>{{ 'general.no_event_for_this_category'|trans }}</p>
+         {% endif %}
+   </section>
+{% endblock %}

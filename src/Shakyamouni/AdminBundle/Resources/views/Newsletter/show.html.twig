@@ -1,0 +1,128 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Créé le</th>
+            <td>{{ entity.createdAt|date('d-m-Y H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Mis à jour le</th>
+            <td>{{ entity.updatedAt|date('d-m-Y H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Titre dans le cadre gris</th>
+            <td>{{ entity.manualTitle }}</td>
+        </tr>
+        <tr>
+            <th>Objet du mail</th>
+            <td>{{ entity.mailObject }}</td>
+        </tr>
+        <tr>
+            <th>Pm</th>
+            <td>{{ entity.pm }}</td>
+        </tr>
+        
+        <tr>
+            <th><h3>Articles liés:</h3></th>
+        </tr>
+        
+        {% for article in entity.newsletterarticles %}
+            {% if article.event is defined and article.event is not null and article.event is not empty %}
+                {% set article_title = article.event.title %}
+            {% elseif article.articleevent is defined and article.articleevent is not null and article.articleevent is not empty %}
+                {% set article_title = article.event.articleevent %}
+            {% elseif article.subcategory is defined and article.subcategory is not null and article.subcategory is not empty %}
+                {% set article_title = article.subcategory %}
+            {% else %}
+                {% set article_title = 'aucun titre' %}
+            {% endif %}
+            <tr>
+                <td>{{ article_title }}</td>
+                <td>
+                    <a href="{{ path('newsletter_article_admin_delete', { 'id_article': article.id, 'id_newsletter': entity.id}) }}" title="Delete">Supprimer l'article de la newsletter</a>
+            </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
+
+<table class="action-button-table">
+    <tbody>
+        <tr>
+            <td>
+                Actions possibles: 
+                <span class="edit">
+                    <a href="{{ path('newsletter_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                </span>
+            </td>
+            <td>
+                <a href="{{ path('newsletter_admin_delete', { 'id': entity.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<span id="loader_ajax" style="display:none"><img src="{{ asset('bundles/shakyamounisite/images/ajax-loader.gif') }}"></span>
+<span id="response_ajax"></span>
+
+<table style="width:100%">
+    <tbody>
+        <tr>
+            <td>
+                <a class="button" href="{{ path('newsletter_overview', { 'id': entity.id }) }}" title="Aperçu" target="_blank">Aperçu</a>
+                <a class="button" id="btn-newsletter-test">Envoyer la newsletter de test</a>
+                <a class="button" id="btn-newsletter">Envoyer la newsletter aux abonnés</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script src="{{ asset('bundles/lexikmailer/js/jquery-1.7.2.min.js') }}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $('#btn-newsletter-test').click(function(){
+        $.ajax({
+            url: "{{ path('newsletter_send', { 'newsletterId': entity.id, 'isTest':1 }) }}",
+            type: "POST",
+            beforeSend: function(){
+                $('#response_ajax').html('');
+                $('#loader_ajax').show();
+            },
+            complete: function(){
+                $('#loader_ajax').hide();
+            },
+            success: function (response) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#response_ajax').html('Une erreur interne est survenue.');
+            }
+        }).done(function( response ) {
+            $('#response_ajax').html(response);
+        });
+     });
+    $('#btn-newsletter').click(function(){
+        $.ajax({
+            url: "{{ path('newsletter_send', { 'newsletterId': entity.id, 'isTest':2 }) }}",
+            type: "POST",
+            beforeSend: function(){
+                $('#response_ajax').html('');
+                $('#loader_ajax').show();
+            },
+            complete: function(){
+                $('#loader_ajax').hide();
+            },
+            success: function (response) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#response_ajax').html('Une erreur interne est survenue.');
+            }
+        }).done(function( response ) {
+            $('#response_ajax').html(response);
+        });
+     });
+</script>
+
+{% endblock %} 

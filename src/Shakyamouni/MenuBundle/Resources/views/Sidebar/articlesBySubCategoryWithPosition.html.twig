@@ -1,0 +1,7 @@
+<ul>
+    {% for article in articlesByPosition %}
+       {% if article.isVisible is defined and article.isVisible is not null and article.isVisible %}
+           <li><a href="{{ path('subcategory_show', { 'category_slug': article.subCategory.category.slug, 'subcategory_slug': subcategory_slug }) }}#{{article.slug}}">{{ article.title }}</a></li>
+       {% endif %}
+    {% endfor %}
+</ul>

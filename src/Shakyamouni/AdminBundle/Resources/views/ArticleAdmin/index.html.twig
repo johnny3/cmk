@@ -1,0 +1,30 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Sous-categorie</th>
+            <th>Position</th>
+            <th>Titre</th>
+            <th>Publié</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.subcategory }}</td>
+                <td>{{ entity.position }}</td>
+                <td>{{ entity.title }}</td>
+                <td>{% if entity.isVisible %}OUI{% else %}NON{% endif %}</td>
+                <td>
+                    <a href="{{ path('article_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                    <a href="{{ path('article_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %} 

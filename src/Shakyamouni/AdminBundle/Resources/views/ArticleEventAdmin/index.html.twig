@@ -1,0 +1,33 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<h1>ArticleEvent list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Evénément lié</th>
+            <th>Date de début de l'événement</th>
+            <th>Date de fin de l'événement</th>
+            <th>Title</th>
+            <th>Publié</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+            <tr>
+                <td>{{ entity.event }}</td>
+                <td>{% if entity.eventDateStart %}{{ entity.eventDateStart| localizeddate('full', 'none') }}{% endif %}</td>
+                <td>{% if entity.eventDateEnd %}{{ entity.eventDateEnd| localizeddate('full', 'none') }}{% endif %}</td>
+                <td>{{ entity.title }}</td>
+                <td>{% if entity.isVisible %}OUI{% else %}NON{% endif %}</td>
+                <td>
+                    <a href="{{ path('articleevent_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                    <a href="{{ path('articleevent_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %} 

@@ -1,0 +1,37 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<h1>Event list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Sous catégorie d'événement</th>
+            <th>Date de début de l'événement</th>
+            <th>Date de fin de l'événement</th>
+            <th>Title</th>
+            <th>Publié</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+            <tr>
+                {% set class_passed = '' %}
+                {% if entity.eventDateEnd|date('Y-m-d') < 'now'|date('Y-m-d') %}
+                    {% set class_passed = 'style=color:red' %}
+                {% endif %}
+                <td {{class_passed}}>{{ entity.subCategoryEvent.title }}</td>
+                <td {{class_passed}}>{% if entity.eventDateStart %}{{ entity.eventDateStart| localizeddate('full', 'none') }}{% endif %}</td>
+                <td {{class_passed}}>{% if entity.eventDateEnd %}{{ entity.eventDateEnd| localizeddate('full', 'none') }}{% endif %}</td>
+                <td {{class_passed}}>{{ entity.title }}</td>
+                <td {{class_passed}}>{% if entity.isVisible %}OUI{% else %}NON{% endif %}</td>
+                <td>
+                    <a href="{{ path('event_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                    <a href="{{ path('event_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %} 

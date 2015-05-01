@@ -1,0 +1,7 @@
+<ul>
+    {% for article in articlesEvent %}
+        {% if article.isVisible is defined and article.isVisible is not null and article.isVisible %}
+            <li><a href="{{ path('subcategoryarticleevent_show', { 'subcategory_slug': subcategory_slug, 'event_slug': event_slug }) }}#{{ article.slug }}">{{ article.title }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>

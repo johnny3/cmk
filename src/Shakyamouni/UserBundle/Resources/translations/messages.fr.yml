@@ -1,0 +1,58 @@
+subscription:
+    suggestion_newsletter: Avez-vous des compléments d'informations dont vous voudriez nous faire part ? Par exemple mobilité réduite,<br/>problèmes d'audition ou de vue, difficultés en station assise...
+    center_discover: Comment avez-vous connu le centre de méditation Kadampa Shakyamouni ?
+    optin: Souhaitez-vous recevoir notre newsletter ?
+    payment_button: Passer au paiement
+    internet.knowledge: Recherche sur internet
+    facebook.knowledge: Facebook
+    pubpapier.knowledge: Publicité papier
+    boucheaoreille.knowledge: Bouche à oreille
+    cmkfrance.knowledge: Centre de Méditation Kadampa France (Sarthe)
+    autre.knowledge: Autre
+    your_subscription: Votre inscription
+    one_form_per_person: Merci de bien vouloir remplir un formulaire par personne.
+    first_name: Prénom
+    last_name: Nom
+    phone: Téléphone
+    email: Adresse mail
+    prices: Tarif
+    additional_information: Renseignements complémentaires
+    payment_waiting: Patientez un instant, vous allez être redirigé vers le formulaire de paiement...
+    payment_success: Nous vous remercions pour votre inscription. Vous allez recevoir un email un avis accusant réception de votre achat. Vous pouvez vous connecter à votre compte sur www.paypal.com/fr pour consulter les détails de cette transaction.
+    cancel_confirm: Nous confirmons votre annulation.
+    know_more: En savoir plus...
+    online_subscription: Inscription en ligne
+newsletter:
+    not_activated: Vous êtes déjà dans notre base mais désactivé. Contactez le centre.
+    subscription_confirmed: Merci de vous être inscrit à la newsletter. Vous allez recevoir un mail de confirmation.
+    already_activated: Cet email existe déjà dans notre base de données et est abonné à la newsletter.
+    spam_message: Afin d'être sûr de recevoir cet email, ajouter l’adresse %address% à votre carnet d’adresses.
+    download_pm: Pour télécharger le calendrier mensuel des activités du <br>%center_name%
+    click_here: cliquez ici
+    subscription_confirmed_browser: <p>Merci pour votre inscription à notre bulletin mensuel.<br/>Votre abonnement est maintenant actif.</p>
+    subscription_unconfirmed_browser: <p>Votre inscription n'a pu être confirmé à cause d\un problème d'e-mail ou de token incorrect(s).<br/>Veuillez utiliser le lien donné dans le mail.</p>
+    unsubscription_not_available: <p>Suite aux récents problèmes rencontrés, il n\'est plus possible de se désinscrire. Veuillez contacter le centre pour cela.</p>
+header:
+    newsletter_subscription: S'inscrire à la newsletter
+footer:
+    subscription_newsletter_title: S'inscrire à la Newsletter
+    follow_us: Nous suivre sur
+    contact_us: Nous contacter
+    newsletter:
+        your_postal_code: Votre code postal (facultatif)
+        your_email: Votre e-mail
+        send_button: Envoyer
+error:
+    404:
+        lost: Il semble que vous vous soyez perdu!
+        meditation: Une petite méditation?
+    500:
+        broken_site: Merci pour votre patience, nous faisons le nécessaire pour rétablir dès que possible le bon fonctionnement du site.
+        see_you_soon: A très bientôt !
+contact:
+    message_sent: Votre message a correctement été envoyé. Merci!
+menu:
+    home: Accueil
+general:
+    no_event_for_this_category: Aucun événement créé pour cette catégorie!
+    private_article: L'article auquel vous tentez d'accéder est privé.

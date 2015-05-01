@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <section id="content" class="sbr">
+        <div class="container clearfix">
+            {#% render "ShakyamouniMenuBundle:Menu:breadCrumbs" %#}
+                
+            {% block article_body %}
+            {% endblock %}
+                
+            {% include 'ShakyamouniMenuBundle:Sidebar:sidebar.html.twig' %}
+        </div>
+    </section>
+    
+
+{% endblock %}

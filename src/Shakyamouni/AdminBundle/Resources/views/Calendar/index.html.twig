@@ -1,0 +1,30 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Crée le</th>
+            <th>Mis à jour le</th>
+            <th>Fichier</th>
+            <th>Activé</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td><a href="http://www.meditation-paris.org/uploads/calendrier/{{entity.calendar}}" target="_blank">{{ entity.calendar }}</a></td>
+            <td>{% if entity.isActive %}OUI{% else %}NON{% endif %}</td>
+            <td>
+                <a href="{{ path('calendar_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                <a href="{{ path('calendar_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 

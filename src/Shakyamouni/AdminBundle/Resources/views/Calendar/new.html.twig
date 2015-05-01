@@ -1,0 +1,29 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('calendar_admin_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+    <div id="shakyamouni_adminbundle_calendartype">
+            <p>
+                {{ form_label(form.file, 'Fichier') }}             
+                {{ form_widget(form.file) }}  {% if form_errors(form.file) %} <span class="input-notification error png_bg">{{ form_errors(form.file) }}</span> {% endif %}
+            </p>
+        
+            <p>
+                {{ form_label(form.isActive, 'Activé ?') }}
+                {{ form_widget(form.isActive) }} {% if form_errors(form.isActive) %}<span class="input-notification error png_bg">{{ form_errors(form.isActive) }}</span> {% endif %}
+            </p>
+    </div>
+    {{ form_rest(form) }}
+    <p>
+        <button class="button" type="submit">Créer</button>
+    </p>
+</form>
+
+{% endblock %}

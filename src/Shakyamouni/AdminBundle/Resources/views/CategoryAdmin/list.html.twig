@@ -1,0 +1,3 @@
+{% for entity in entities %}
+    <li><a href="{{ path('category_admin_show', { 'id': entity.id }) }}">{{ entity.title }}</a></li>
+{% endfor %}

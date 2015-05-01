@@ -25,6 +25,11 @@
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
+/web/css/
+/web/js/
+/web/app_dev.php
+/web/assetic/
+/web/imagine/
 
 # PHPUnit
 /app/phpunit.xml
@@ -35,3 +40,4 @@
 
 # Composer PHAR
 /composer.phar
+/nbproject/private/

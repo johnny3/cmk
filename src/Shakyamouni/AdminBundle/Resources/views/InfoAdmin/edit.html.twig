@@ -1,0 +1,77 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<h1>Info edit</h1>
+
+<form action="{{ path('info_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+    <div id="shakyamouni_sitebundle_infotype">
+            <p>
+                {{ form_label(edit_form.centerName, 'Nom du centre') }}
+                {{ form_widget(edit_form.centerName, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.centerName) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.centerName) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.street, 'Rue') }}
+                {{ form_widget(edit_form.street, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.street) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.street) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.town, 'Ville') }}
+                {{ form_widget(edit_form.town, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.town) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.town) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.metro, 'Metro') }}
+                {{ form_widget(edit_form.metro, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.metro) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.metro) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.building, 'Immeuble') }}
+                {{ form_widget(edit_form.building, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.building) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.building) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.interphone, 'Building') }}
+                {{ form_widget(edit_form.interphone, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.interphone) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.interphone) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.phoneNumber, 'Numéro de téléphone') }}
+                {{ form_widget(edit_form.phoneNumber, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.phoneNumber) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.phoneNumber) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.email, 'Email') }}
+                {{ form_widget(edit_form.email, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.email) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.email) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.facebook, 'Facebook') }}
+                {{ form_widget(edit_form.facebook, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.facebook) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.facebook) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.twitter, 'Twitter') }}
+                {{ form_widget(edit_form.twitter, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.twitter) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.twitter) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(edit_form.sentenceFooter1, 'Phrase 1 pied de page') }}
+                {{ form_widget(edit_form.sentenceFooter1, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.sentenceFooter1) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.sentenceFooter1) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(edit_form.sentenceFooter2, 'Phrase 2 pied de page') }}
+                {{ form_widget(edit_form.sentenceFooter2, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(edit_form.sentenceFooter2) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.sentenceFooter2) }}</span> {% endif %}
+            </p>
+
+          </div>
+
+    {{ form_rest(edit_form) }}
+
+            <p>
+                <button class="button" type="submit">Mettre à jour</button>
+            </p>
+
+</form>
+{% endblock %} 

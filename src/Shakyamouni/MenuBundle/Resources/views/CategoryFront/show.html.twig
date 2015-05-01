@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <section id="content">
+        <div class="container clearfix">
+            {#% render "ShakyamouniMenuBundle:Menu:breadCrumbs" %#}
+                
+            <div class="sixteen columns">
+                {% if category.eventCat == false and category.calendarCat == false and category.contactCat == false %}
+                    {% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : category} %}
+                {% elseif category.calendarCat == true %}
+                    {% include 'ShakyamouniMenuBundle:CategoryFront:calendar.html.twig' with {'entity' : category} %}
+                {% elseif category.contactCat == true %}
+                    {% include 'ShakyamouniMenuBundle:CategoryFront:contact.html.twig' with {'entity' : category} %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : category}  %}
+
+<br/>
+
+<iframe src="../../../uploads/calendrier/{{pm.calendar}}" width="120%" height="610"></iframe>
+
+<p>Mis à jour le {{pm.updatedAt | localizeddate('full', 'none') }}</p>
+
+<p><span style="text-decoration: underline;"><a href="../../../uploads/calendrier/{{pm.calendar}}">Si vous ne visualisez pas le programme mensuel, cliquer ici</a></span></p>
+
+{#<div class="periods">
+    <div class="year">{{year}}</div>
+    <div class="months">
+        <ul>
+            {% for id, m in date.months %}
+                {% if (id+1 >= "now"|date("n")) %}
+                    <li><a href="" id="linkMonth{{ id+1 }}">{{m|slice(0, 3)}}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+     </div>
+     <div class="clear"></div>
+
+    {% for m, days in dates %}
+        <div class="month relative" id="month{{ m }}">
+            <table>
+                <thead>
+                    <tr>
+                        {% for d in date.days %}
+                             <th>{{d|slice(0, 3)}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for d, w in days %}                            
+                            {% if d == 1 and w != 1%}
+                                <td colspan="{{ w-1 }}" class="padding"></td>
+                            {% endif %}
+                            <td>
+                                <div class="relative">
+                                    <div class="day">{{ d }}</div>
+                                </div>
+                            </td>
+                            {% if w == 7 %}
+                                </tr><tr>
+                            {% endif %}
+                            {% if loop.last and w != 7 %}           
+                                <td colspan="{{ 7-w }}" class="padding"></td>
+                            {% endif %}
+                        {% endfor %}               
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="clear"></div>
+
+<br/>
+<p>Mis à jour le </p>
+<p id="calendar-date"><a href="{{path('calendar_pdf', { 'month': "now"|date("n") , 'year': year })}}">Version pdf</a></p>
+
+<script type="text/javascript">
+    jQuery(function($){
+       $('.month').hide();
+       $('.month:first').show();
+       $('.months a:first').addClass('active');
+       var current = 1;
+       $('.months a').click(function(){
+           var month = $(this).attr('id').replace('linkMonth','');
+            if(month != current){
+                $('#month'+current).fadeOut('slow');
+                $('#month'+month).fadeIn('slow');
+                $('.months a').removeClass('active'); 
+                $('.months a#linkMonth'+month).addClass('active'); 
+                current = month;
+            }
+            
+            $('#calendar-date a').attr("href", '{{app.request.server.get('SCRIPT_NAME')}}'+'/cat/calendar-pdf/' + current + '/' + {{year}});
+            
+            return false; 
+       });
+    });
+</script>
+
+#}

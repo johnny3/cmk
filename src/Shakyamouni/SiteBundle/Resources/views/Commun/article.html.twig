@@ -1,0 +1,47 @@
+{% if entryClass is not defined %}
+    {% set entryClass = true %}
+{% endif %}
+
+{% if entity.body is not null and entity.body is not empty %}
+    {% if loop is defined %}
+        {% if loop.last %}
+            {% set entryClass = false %}
+        {% endif %}
+    {% endif %}
+    <article class="{% if entryClass %}entry{% endif %} clearfix" style="margin-bottom: 25px;padding-bottom: 15px;">
+        <div id="{{ entity.slug }}"></div>
+        <time pubdate="{{ entity.createdAt|date('Y-m-dTH:i:s') }}" datetime="{{ entity.createdAt|date('Y-m-dTH:i:s') }}"></time>
+            {% if entity.picture is defined and entity.picture is not null %}
+                {% set filter_picture_size = 'thumbnail_200x200' %}
+                {% if entity.pictureSize is defined and entity.pictureSize is not null %}
+                   {% set filter_picture_size = 'thumbnail_' ~ entity.pictureSize %}
+                {% endif %}
+                <img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/', entity.picture] | join | apply_filter(filter_picture_size)) }}">
+            {% endif %}
+            {% if entity.chapo is defined and entity.chapo is not null and entity.chapo is not empty %}
+                <div class="entry-body">{{ entity.chapo | raw }}</div>
+
+                <div class="clearfix"></div>
+                <div id="savoir-plus-{{entity.slug}}" class="Question body-text">{{ entity.body | raw }}</div>
+                <div class="button2">
+                    <a class="button2 en_savoir_plus" 
+                        onclick="javascript:doSectionHit('{{entity.slug}}')" 
+                        href="javascript:void(0);">
+                         <span>{{ 'subscription.know_more'|trans }}</span>
+                    </a>
+                </div>
+                {% if entity.reservationLink is defined and entity.reservationLink is not null and entity.reservationLink is not empty %}
+                    <div class="button2 inscription">
+                        <a class="button2" 
+                            href="{{ entity.reservationLink }}" target="_blank">
+                             <span>{{ 'subscription.online_subscription'|trans }}</span>
+                        </a>
+                    </div>
+                {% endif %}
+            {% else %}
+                {% if entity.body is not null and entity.body is not empty %}
+                    <div class="entry-body">{{ entity.body | raw }}</div>
+                {% endif %} 
+            {% endif %}  
+    </article>
+{% endif %}

@@ -1,0 +1,65 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="slider">
+    <div class="container">
+        <div class="sixteen columns">
+            <div class="flexslider">
+                <ul class="slides">
+                    {%  for slider in sliders %}
+                        <li>
+                            <div class="preloader">
+                                {% if slider.event is not null %}    
+                                    <a href="{{ path('subcategoryevent_show', { 'subcategory_slug': slider.event.subCategoryEvent.slug }) }}#{{ slider.event.slug }}" class="bwWrapper">
+                                {% elseif slider.articleevent is not null %}
+                                    <a href="{{ path('subcategoryarticleevent_show', {'subcategory_slug': slider.articleevent.event.subCategoryEvent.slug, 'event_slug': slider.articleevent.event.slug }) }}#{{ slider.articleevent.slug }}" class="bwWrapper">
+                                {% elseif slider.article is not null %}
+                                    <a href="{{ path('subcategory_show', { 'category_slug': slider.article.subCategory.category.slug, 'subcategory_slug': slider.article.subCategory.slug }) }}#{{ slider.article.slug }}" class="bwWrapper">  
+                                {% elseif slider.subcategory is not null %}
+                                    <a href="{{ path('subcategory_show', { 'category_slug': slider.subcategory.category.slug, 'subcategory_slug': slider.subcategory.slug }) }}" class="bwWrapper">
+                                {% else %}
+                                    <a href="#">
+                                {% endif %}
+                                    <img src="{{ asset(['uploads/carrousel/', slider.picture] | join | apply_filter('thumbnail_960x360')) }}">
+                                </a>
+                            </div>
+                            {% if slider.isCaption %}
+                                <section class="caption mixed-bg-1">
+                                    <h4>
+                                        <a title="{{slider.title}}" href="#">{{slider.title}}</a>
+                                    </h4>
+                                    <p class="desc">{{slider.subtitle}}</p>
+                                </section>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div><!--/ .flexslider-->	
+        </div><!--/ .columns-->
+    </div><!--/ .container-->
+</div><!--/ .slider-->
+
+<section id="content">
+    <div class="container">
+        <div class="divider-solid"></div>
+
+        <div class="twelve columns">
+
+            <h4 class="content-title">{{ blocks.title1 }}</h4>
+
+            {{ blocks.body1 | raw }}
+
+        </div><!--/ .columns-->
+
+        <div class="four columns">
+
+            <h4 class="content-title">{{ blocks.title3 }}</h4>
+
+            {{ blocks.body3 | raw }}
+
+        </div><!--/ .columns-->
+
+    </div><!--/ .container-->
+
+</section><!--/ #content-->
+{% endblock %}

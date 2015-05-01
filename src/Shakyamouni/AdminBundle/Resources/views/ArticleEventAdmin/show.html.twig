@@ -1,0 +1,23 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+<p><span class="souligne-gras">Sous-catégorie:</span> {{ article.event }}</p>
+<p><span class="souligne-gras">Date de début de l'événement:</span> {% if article.eventDateStart %}{{ article.eventDateStart| localizeddate('full', 'none') }}{% endif %}</p>
+<p><span class="souligne-gras">Date de fin de l'événement:</span> {% if article.eventDateEnd %}{{ article.eventDateEnd| localizeddate('full', 'none') }}{% endif %}</p>
+<p><span class="souligne-gras">Est publié:</span> {% if article.isVisible %}OUI{% else %}NON{% endif %}</p>
+{% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : article}  %}
+
+<table class="action-button-table">
+    <tbody>
+        <tr>
+            <td>
+                Actions possibles: <span class="edit"><a href="{{ path('articleevent_admin_edit', { 'id': article.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a></span>
+            </td>
+            <td>
+                <a href="{{ path('articleevent_admin_delete', { 'id': article.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %} 

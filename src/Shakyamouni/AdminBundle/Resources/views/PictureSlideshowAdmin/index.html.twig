@@ -1,0 +1,39 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>SlideShow</th>
+            <th>Image</th>
+            <th>Position</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.title }}</td>
+            <td>{{ entity.slideshow }}</td>
+            <td>
+            {% if entity.picture is defined and entity.picture is not null %}
+                {% set filter_picture_size = 'thumbnail_87x113' %}
+                <p><img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/pictureSlideshow/', entity.picture] | join | apply_filter(filter_picture_size)) }}"></p>
+            {% endif %}
+            </td>
+            <td>{{ entity.position }}</td>
+            <td>
+                <a href="{{ path('pictures_slideshow_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+                <a href="{{ path('pictures_slideshow_admin_delete', { 'id': entity.id }) }}" title="Delete" class="action-delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p>
+    <a href="{{ path('pictures_slideshow_admin_new') }}" class="action-create"><button class="button">Créer</button></a>
+</p>
+
+{% endblock %} 

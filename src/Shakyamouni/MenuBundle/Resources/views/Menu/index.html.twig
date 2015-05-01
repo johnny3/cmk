@@ -1,0 +1,43 @@
+<div class="sixteen columns">
+    <div class="menu-container clearfix">
+
+        <nav id="navigation" class="navigation clearfix">
+
+            <div class="menu">
+                <ul>
+                    <li {% if ('' == typeCat and '' == catSlug) %}class="current-menu-item"{% endif %}><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a>
+                    </li>
+                    {% for category in categoriesWithArticles %}
+                            {% if category.subCategories is defined and category.subCategories is not empty and category.eventCat == false %}
+                                <li {% if uri_array_length == 5 and category.slug == catSlug %}class="current-menu-item"{% endif %}>
+                                {{ render(controller('ShakyamouniMenuBundle:SubCategoryFront:visibleSubCategoryByCategory', { 'category_slug': category.slug })) }}
+                            {% elseif category.eventCat == true and subCategoriesEvent.0.slug is defined %}
+                                <li {% if uri_array_length == 3 and typeCat == 'evenements' %}class="current-menu-item"{% endif %}>
+                                {{ render(controller('ShakyamouniMenuBundle:SubCategoryEventFront:visibleSubCategoryEventByCategory', { 'category_slug': category.slug })) }}
+                            {% else %}
+                                <li {% if uri_array_length == 3  and typeCat == 'cat'%}class="current-menu-item"{% endif %}>
+                                <a href="{{ path('category_show', { 'slug': category.slug }) }}">{{ category.title }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </nav><!--/ .navigation-->
+
+        <!--<div class="search-wrapper">
+
+            <form method="post" action="/">
+
+                <p>
+                    <input name="s" id="s" type="text">
+                    <button type="submit" class="submit-search">Search</button>
+                </p>
+
+            </form>
+
+        </div><!--/ .search-wrapper--> 		
+
+    </div><!--/ .menu-container-->	
+
+</div><!--/ .columns-->

@@ -1,0 +1,17 @@
+<h1>NewsletterArticle creation</h1>
+
+<form action="{{ path('newsletter_article_admin_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+    {{ tinymce_init() }}
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('newsletter_article_admin') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

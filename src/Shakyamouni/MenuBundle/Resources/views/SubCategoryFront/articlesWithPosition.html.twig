@@ -1,0 +1,5 @@
+{% for article in articlesByPosition %}
+    {% if article.isVisible is defined and article.isVisible is not null and article.isVisible %}
+        {% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : article, 'entryClass': true} %}
+    {% endif %}
+ {% endfor %}

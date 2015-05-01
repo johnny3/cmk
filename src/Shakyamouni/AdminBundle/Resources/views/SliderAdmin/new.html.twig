@@ -1,0 +1,64 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+<div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+    <form action="{{ path('slider_admin_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+        <div id="shakyamouni_sitebundle_slidertype">
+            <p>
+                {{ form_label(form.position, 'Position') }}
+                {{ form_widget(form.position, { 'attr': {'class': 'text-input small-input'} })  }} {% if form_errors(form.position) %}<span class="input-notification error png_bg">{{ form_errors(form.position) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.isCaption, 'Encart visible') }}
+                {{ form_widget(form.isCaption) }} {% if form_errors(form.isCaption) %}<span class="input-notification error png_bg">{{ form_errors(form.isCaption) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.title, 'Titre dans l\'encart') }}
+                {{ form_widget(form.title, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(form.title) %} <span class="input-notification error png_bg">{{ form_errors(form.title) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.subtitle, 'Sous-titre dans l\'encart') }}
+                {{ form_widget(form.subtitle, { 'attr': {'class': 'text-input medium-input'} }) }} {% if form_errors(form.subtitle) %} <span class="input-notification error png_bg">{{ form_errors(form.subtitle) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.file, 'Image') }}             
+                {{ form_widget(form.file) }}  {% if form_errors(form.file) %} <span class="input-notification error png_bg">{{ form_errors(form.file) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.event, 'Evénement lié') }}             
+                {{ form_widget(form.event, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.event) %} <span class="input-notification error png_bg">{{ form_errors(form.event) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.articleevent, 'Article lié (relatif à un type d\'événement)') }}             
+                {{ form_widget(form.articleevent, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.articleevent) %} <span class="input-notification error png_bg">{{ form_errors(form.articleevent) }}</span> {% endif %}
+            </p>
+
+            <p>
+                {{ form_label(form.article, 'Article lié') }}             
+                {{ form_widget(form.article, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.article) %} <span class="input-notification error png_bg">{{ form_errors(form.article) }}</span> {% endif %}
+            </p>
+            
+            <p>
+                {{ form_label(form.subcategory, 'Sous catégorie') }}             
+                {{ form_widget(form.subcategory, { 'attr': {'class': 'small-input'} }) }}  {% if form_errors(form.subcategory) %} <span class="input-notification error png_bg">{{ form_errors(form.subcategory) }}</span> {% endif %}
+            </p>
+        </div>
+
+    {{ form_rest(form) }}
+        <p>
+            <button class="button" type="submit">Créer</button>
+        </p>
+    </form>
+{% endblock %} 

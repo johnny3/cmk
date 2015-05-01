@@ -1,0 +1,48 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Sous-titre</th>
+            <th>Lien</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        {% if entity.subCategory is defined and entity.subCategory is not null %}
+            {% set url = path('subcategory_show', { 'category_slug': entity.subCategory.category.slug, 'subcategory_slug': entity.subCategory.slug }) %}
+        {% elseif entity.subCategoryEvent is defined and entity.subCategoryEvent is not null %}
+            {% set url = path('subcategoryevent_show', {'subcategory_slug': entity.subCategoryEvent.slug }) %}
+        {% elseif entity.articleevent is defined and entity.articleevent is not null %}
+            {% set url = path('subcategoryarticleevent_show', {'subcategory_slug': entity.articleevent.event.subCategoryEvent.slug, 'event_slug': entity.articleevent.event.slug })~'#'~entity.articleevent.slug %}
+        {% else %}
+            {% set url = "pas de lien" %}
+        {% endif %}    
+            
+        <tr>
+            <td>{{ entity.title }}</td>
+            <td>{{ entity.subtitle }}</td>
+            <td>{{ url }}</td>
+            <td>
+            {% if entity.picture is defined and entity.picture is not null %}
+                {% set filter_picture_size = 'thumbnail_87x113' %}
+                <p><img class="article-img" alt="{{entity.picture}}" src="{{ asset(['uploads/pictureHomepage/', entity.picture] | join | apply_filter(filter_picture_size)) }}"></p>
+            {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('picture_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{#<p>
+    <a href="{{ path('picture_admin_new') }}" class="action-create"><button class="button">Créer</button></a>
+</p>#}
+    
+{% endblock %} 

@@ -1,0 +1,119 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<form action="{{ path('newsletter_admin_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+    <div id="shakyamouni_adminbundle_newslettertype">
+        <p>
+            {{ form_label(edit_form.pm, 'Programme Mensuel') }}             
+            {{ form_widget(edit_form.pm) }}  {% if form_errors(edit_form.pm) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.pm) }}</span> {% endif %}
+        </p>
+        
+        <p>
+            {{ form_label(edit_form.isPmUploadable, 'Lien pm visible ?') }}             
+            {{ form_widget(edit_form.isPmUploadable) }}  {% if form_errors(edit_form.isPmUploadable) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.isPmUploadable) }}</span> {% endif %}
+        </p>
+                
+        <p>
+            {{ form_label(edit_form.mailObject, 'Objet du mail') }}
+            {{ form_widget(edit_form.mailObject, { 'attr': {'class': 'text-input large-input'} }) }} {% if form_errors(edit_form.mailObject) %} <span class="input-notification error png_bg">{{ form_errors(edit_form.mailObject) }}</span> {% endif %}
+        </p>
+        
+        <p>
+            {{ form_label(edit_form.manualTitle, 'Titre de la newsletter dans le cadre gris') }}
+            {{ form_widget(edit_form.manualTitle, { 'attr': {'class': 'text-input large-input'} }) }}
+
+            {% if form_errors(edit_form.manualTitle) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.manualTitle) }}</span> {% endif %}
+        </p>
+        
+        <p>
+            {{ form_label(edit_form.sentence, 'Phrase de la newsletter') }}
+            {{ form_widget(edit_form.sentence) }}
+
+            {% if form_errors(edit_form.sentence) %} <br/> <span class="input-notification error png_bg">{{ form_errors(edit_form.sentence) }}</span> {% endif %}
+        </p>
+
+        <p>
+            {{ form_widget(edit_form.newsletterarticles) }}
+        </p>
+    </div>
+    <p>
+        <button class="button" type="submit">Mettre à jour</button>
+    </p>
+    {{ form_rest(edit_form) }}
+</form>
+
+    {{ elfinder_tinymce_init4() }}
+    {{ tinymce_init() }}
+
+<script type="text/javascript">
+$(document).ready(function() {
+  // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+  var $container = $('div#shakyamouni_adminbundle_newslettertype_newsletterarticles');
+ 
+  // On ajoute un lien pour ajouter une nouvelle catégorie
+  var $lienAjout = $('<a href="#" id="ajout_categorie" class="btn">Ajouter un article à la newsletter</a>');
+  $container.append($lienAjout);
+ 
+  // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+  $lienAjout.click(function(e) {
+    ajouterCategorie($container);
+    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+    return false;
+  });
+ 
+  // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+  var index = $container.find(':input').length;
+ 
+  // On ajoute un premier champ directement s'il n'en existe pas déjà un (cas d'un nouvel article par exemple).
+  if (index == 0) {
+    ajouterCategorie($container);
+  } else {
+    // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
+    $container.children('div').each(function() {
+      ajouterLienSuppression($(this));
+    });
+  }
+ 
+  // La fonction qui ajoute un formulaire Categorie
+  function ajouterCategorie($container) {
+    // Dans le contenu de l'attribut « data-prototype », on remplace :
+    // - le texte "__name__label__" qu'il contient par le label du champ
+    // - le texte "__name__" qu'il contient par le numéro du champ
+    var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Article n°' + (index+1))
+                                                        .replace(/__name__/g, index));
+ 
+    // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+    ajouterLienSuppression($prototype);
+ 
+    // On ajoute le prototype modifié à la fin de la balise <div>
+    $container.append($prototype);
+ 
+    // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+    index++;
+  }
+ 
+  // La fonction qui ajoute un lien de suppression d'une catégorie
+  function ajouterLienSuppression($prototype) {
+    // Création du lien
+    $lienSuppression = $('<br/><a href="#" class="btn btn-danger">Supprimer un article que vous venez de créer à l\'instant</a><br/><br/>');
+ 
+    // Ajout du lien
+    $prototype.append($lienSuppression);
+ 
+    // Ajout du listener sur le clic du lien
+    $lienSuppression.click(function(e) {
+      $prototype.remove();
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+  }
+});
+</script>
+{% endblock %} 

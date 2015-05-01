@@ -1,0 +1,153 @@
+<footer id="footer">
+
+    <div class="container">
+
+        <div class="one-third column row">
+
+            <div class="widget widget_recent_entries">
+
+                <h3 class="widget-title">{{ 'footer.subscription_newsletter_title'|trans }}</h3>
+
+                <form method="post" action="#" {{ form_enctype(form) }} novalidate>
+                <p class="p-form"><strong>{{ form_label(form.name, 'footer.newsletter.your_postal_code'|trans) }}</strong></p>
+                <div>
+                    {{ form_widget(form.name) }} {% if form_errors(form.name) %} <span class="input-notification">{{ form_errors(form.name) }}</span> {% endif %}
+                </div>
+                <p class="p-form"><strong>{{ form_label(form.name, 'footer.newsletter.your_email'|trans) }}</strong></p>
+                <div>
+                    {{ form_widget(form.email) }} {% if form_errors(form.email) %} <span class="input-notification">{{ form_errors(form.email) }}</span> {% endif %}
+                </div>
+                <p style="display:none">{{ form_label(form.name, 'Est abonné') }}</p>
+                <div style="display:none">
+                    {{ form_widget(form.is_active) }} {% if form_errors(form.is_active) %} <span class="input-notification">{{ form_errors(form.is_active) }}</span> {% endif %}
+                </div>
+                <footer>
+                    <p id="shakyamouni_userbundle_newslettersubscribertype_click">
+                        {{ 'footer.newsletter.send_button'|trans }}
+                    </p>
+                    <br>
+                    <span id="loader_ajax" style="display:none"><img src="{{ asset('bundles/shakyamounisite/images/ajax-loader.gif') }}"></span>
+                </footer>
+                
+                <span id="response_ajax"></span>
+                
+                {{ form_rest(form) }}
+            </form>
+
+            </div><!--/ .widget-->
+
+        </div><!--/ .columns-->
+
+        <div class="one-third column row">
+
+            <div class="widget widget_social">
+
+                <h3 class="widget-title">{{ 'footer.follow_us'|trans }}</h3>
+
+                <ul class="social-icons clearfix">
+                    {% if footerInfo.facebook is defined and footerInfo.facebook is not null %}
+                        <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fcentredemeditationkadampaparis%3Fref%3Dhl&amp;width=300&amp;height=80&amp;colorscheme=dark&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:80px;" allowTransparency="true"></iframe>
+                    {% endif %}
+                </ul><!--/ .social-list-->		
+
+            </div><!--/ .widget-->
+
+        </div><!--/ .columns -->
+        
+        <div class="one-third column row">
+
+            <div class="widget widget_text">
+
+                <h3 class="widget-title">{{ 'footer.contact_us'|trans }}</h3>
+
+                <div class="textwidget">
+                    <ul>
+                        <strong>
+                            {% if footerInfo.centerName is defined and footerInfo.centerName is not null %}
+                                <p>{{footerInfo.centerName}}<br/>
+                            {% endif %}
+
+                            {% if footerInfo.street is defined and footerInfo.street is not null %}
+                                {{footerInfo.street}} {{footerInfo.town}}<br/>                           
+                            {% endif %}
+
+                            {% if footerInfo.metro is defined and footerInfo.metro is not null %}
+                                {{footerInfo.metro}}<br/>
+                            {% endif %}
+
+                            {% if footerInfo.building is defined and footerInfo.building is not null %}
+                                {{footerInfo.building}}<br/>
+                            {% endif %}
+
+                            {% if footerInfo.interphone is defined and footerInfo.interphone is not null %}
+                                {{footerInfo.interphone}}</p>
+                            {% endif %}
+                        </strong>
+                        {% if footerInfo.phoneNumber is defined and footerInfo.phoneNumber is not null %}
+                                <strong>{{footerInfo.phoneNumber}}</strong><br/>
+                        {% endif %}
+                        {% if footerInfo.email is defined and footerInfo.email is not null %}
+                                <a href="mailto:{{footerInfo.email}}">{{footerInfo.email}}</a>
+                        {% endif %}
+                    </ul>
+
+                </div><!--/ .textwidget-->
+
+            </div><!--/ .widget -->
+
+        </div><!--/ .columns -->
+
+        <div class="clear"></div>
+
+        <div class="sixteen columns">
+
+            <div class="adjective clearfix">
+                {% if footerInfo.sentenceFooter1 is defined and footerInfo.sentenceFooter1 is not null and footerInfo.sentenceFooter2 is defined and footerInfo.sentenceFooter2 is not null %}
+                    <div class="copyright" >{{footerInfo.sentenceFooter1}}<br>{{footerInfo.sentenceFooter2}}</div>
+                {% endif %}
+            </div><!--/ .adjective-->			
+
+        </div><!--/ .columns-->
+
+    </div><!--/ .container -->
+
+</footer><!--/ #footer -->
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('form footer p#shakyamouni_userbundle_newslettersubscribertype_click').click(function(){
+                    $('footer#footer_page div.column').css({
+                            'min-height': '260px'
+                        });
+
+                    if (isValidEmail($('#shakyamouni_userbundle_newslettersubscribertype_email').val())){
+                        $.ajax({
+                            url: "{{ path('newslettersubscriber_ajax_create') }}",
+                            type: "POST",
+                            beforeSend: function(){
+                                $('#response_ajax').html('');
+                                $('#loader_ajax').show();
+                            },
+                            complete: function(){
+                                $('#loader_ajax').hide();
+                            },
+                            data: {
+                                name: $('#shakyamouni_userbundle_newslettersubscribertype_name').val(),
+                                email: $('#shakyamouni_userbundle_newslettersubscribertype_email').val()
+                            },
+                            success: function (response) {
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $('#response_ajax').html('Une erreur interne est survenue.');
+                            }
+                        }).done(function( response ) {
+                            $('#response_ajax').html(response);
+                        });
+                    }
+                    else {
+                        var msg = msgValidEmail($('#shakyamouni_userbundle_newslettersubscribertype_email').val());
+                        $('#response_ajax').html(msg);
+                    }
+                });
+        });
+</script>

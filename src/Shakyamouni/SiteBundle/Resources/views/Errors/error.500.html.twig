@@ -1,0 +1,15 @@
+{% extends "ShakyamouniSiteBundle::layout.html.twig" %}
+
+{% block body %}
+
+    <section id="content" class="sbr">
+        <div class="container clearfix">
+            <div class="sixteen columns row" style="text-align:center">
+                <h1>{{ 'error.500.broken_site'|trans }}</h1>
+                <h2>{{ 'error.500.see_you_soon'|trans }}</h2>
+                <p><img src="{{ asset('bundles/shakyamounisite/images/meditant_sur_coussin.png') }}" /></p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

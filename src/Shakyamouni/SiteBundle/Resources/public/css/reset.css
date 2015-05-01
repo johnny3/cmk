@@ -1,0 +1,7 @@
+﻿body {font-family: arial,helvetica,sans-serif; font-size:12px;margin:auto;padding:0;color:#000;text-align: justify}
+ul, ol, dl, h1, h2, h3, h4, h5 {padding:0;margin:0;font-weight:normal}
+ul, ol {list-style-type:none}
+a{text-decoration:none}
+a img {border:none}
+header, section, footer, aside, nav, article, figure {display:block;margin:0}
+p{line-height:20px;}

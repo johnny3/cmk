@@ -1,0 +1,40 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block body_admin %}
+
+{% if entity.eventCat %}
+    {% set type = 'Evénements' %}
+{% elseif entity.contactCat %}
+    {% set type = 'Formulaire de contact' %}
+{% elseif entity.calendarCat %}
+    {% set type = 'Calendrier' %}
+{% else %}
+    {% set type = 'Classique' %}
+{% endif %}
+
+<p><span class="souligne-gras">Position:</span> {{ entity.position }}</p>
+<p><span class="souligne-gras">Type de catégorie:</span> {{ type }}</p>
+
+{% include 'ShakyamouniSiteBundle:Commun:article.html.twig' with {'entity' : entity}  %}
+{% if entity.calendarCat %}
+    <iframe src="../../../../uploads/calendrier/{{pm.calendar}}" width="1000" height="500"></iframe>
+
+    <p>Mis à jour le {{pm.updatedAt | localizeddate('full', 'none') }}</p>
+
+    <p><span style="text-decoration: underline;"><a href="../../../../uploads/calendrier/{{pm.calendar}}">Si vous ne visualisez pas le programme mensuel, cliquer ici</a></span></p>
+{% endif %}
+
+<table class="action-button-table">
+    <tbody>
+        <tr>
+            <td>
+                Actions possibles: <span class="edit"><a href="{{ path('category_admin_edit', { 'id': entity.id }) }}" title="Edit"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/pencil.png') }}" alt="Edit" /></a></span>
+            </td>
+            <td>
+                <a href="{{ path('category_admin_delete', { 'id': entity.id }) }}" title="Delete"><img src="{{ asset('bundles/shakyamouniadmin/images/icons/cross.png') }}" alt="Delete" /></a> 
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

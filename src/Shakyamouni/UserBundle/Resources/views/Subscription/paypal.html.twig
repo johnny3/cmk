@@ -1,0 +1,39 @@
+{% extends "ShakyamouniSiteBundle::layout.html.twig" %}
+
+{% block body %}
+<div class="content-center left-block">
+    <form id="paypal" action="{{action}}" method="post">
+        <input name="amount" type="hidden" value="{{amount}}" />
+        <input name="currency_code" type="hidden" value="EUR" />
+        <input name="shipping" type="hidden" value="0.00" />
+        <input name="tax" type="hidden" value="0.00" />
+        <input name="return" type="hidden" value="{{return_url}}" />
+        <input name="cancel_return" type="hidden" value="{{cancel_return_url}}" />
+        <input name="notify_url" type="hidden" value="{{notify_url}}" />
+        <input name="cmd" type="hidden" value="_xclick" />
+        <input name="business" type="hidden" value="{{ email_merchant }}" />
+        <input name="item_name" type="hidden" value="{{ description }}" />
+        <input name="no_note" type="hidden" value="1" />
+        <input name="lc" type="hidden" value="FR" />
+        <input name="bn" type="hidden" value="PP-BuyNowBF" />
+        <input name="custom" type="hidden" value="subscription-id={{subscription_id}}&email-subscriber={{email_subscriber}}&user-id={{user_id}}&is-optin={{is_optin}}" />
+        <input type="submit" value="" style="display:none">
+    </form>
+ 
+        <section id="content" class="sbr">
+        <div class="container clearfix">
+            <div class="sixteen columns row">
+                <h3>{{ 'subscription.payment_waiting'|trans()}} </h3>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    
+    <script type="text/javascript" style="display:none;">
+        $(document).ready(function(){
+            setTimeout('$("#paypal").submit();', 100);
+        });
+    </script>
+{% endblock %}

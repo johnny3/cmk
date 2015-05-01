@@ -1,0 +1,60 @@
+<article>
+    <time pubdate="{{ entity.createdAt|date('Y-m-dTH:i:s') }}" datetime="{{ entity.createdAt|date('Y-m-dTH:i:s') }}"></time>
+    <div class="body-text chapo">{{ entity.chapo | raw }}</div>
+    
+    <div class="clearfix"></div>
+
+    <div class="et-box et-shadow">
+        <div class="et-box-content">
+            {% if app.session.hasFlash('notice') %}
+                <div class="flash-notice">
+                    {{ app.session.flash('notice') }}
+                </div>
+            {% endif %}
+            <p>Vos commentaires ou questions sont bienvenus.</p>
+            <div id="FSContact1" style="width:375px;">
+                <form action="{{ path('category_show', { 'slug': contactCategory.slug }) }}" method="post" {{ form_enctype(form) }}>
+                    <div style="text-align:left;"> * (indique champ requis) </div>
+                    <div style="text-align:left; padding-top:5px;">
+                        {{ form_label(form.contact, 'Vous souhaitez contacter: *') }}
+                    </div>
+                    <div style="text-align:left;">
+                        {{ form_widget(form.contact) }} {% if form_errors(form.contact) %} <span class="input-notification">{{ form_errors(form.contact) }}</span> {% endif %}
+                    </div>
+                    <div style="text-align:left; padding-top:5px;">
+                        {{ form_label(form.name, 'Nom: *') }}
+                    </div>
+                    <div style="text-align:left;">
+                        {{ form_widget(form.name, { 'attr': {'size': '40'} })  }} {% if form_errors(form.name) %}<span class="input-notification">{{ form_errors(form.name) }}</span> {% endif %}
+                    </div>
+                    <div style="text-align:left; padding-top:5px;">
+                        {{ form_label(form.email, 'Email: *') }}
+                    </div>
+                    <div style="text-align:left;">
+                        {{ form_widget(form.email, { 'attr': {'size': '40'} })  }} {% if form_errors(form.email) %}<span class="input-notification">{{ form_errors(form.email) }}</span> {% endif %}
+                    </div>
+                    <div style="text-align:left; padding-top:5px;">
+                        {{ form_label(form.subject, 'Sujet: *') }}
+                    </div>
+                    <div style="text-align:left;">
+                        {{ form_widget(form.subject, { 'attr': {'size': '40'} })  }} {% if form_errors(form.subject) %} <span class="input-notification">{{ form_errors(form.subject) }}</span> {% endif %}
+                    </div>
+                    <div style="text-align:left; padding-top:5px;">
+                        {{ form_label(form.body, 'Message: *') }}
+                    </div>
+                    <div style="text-align:left;">
+                        {{ form_widget(form.body, { 'attr': {'rows': '10', 'cols': '30'} }) }} {% if form_errors(form.body) %} <span class="input-notification">{{ form_errors(form.body) }}</span> {% endif %}
+                    </div>
+                    {{ form_rest(form) }}
+                    <div style="text-align:left; padding-top:2px;">
+                        <input type="submit" value="Envoyer" style="cursor:pointer; margin:0;">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="body-text contact">{{ entity.body | raw }}</div>
+</article>
+<div class="clearfix"></div>

@@ -1,0 +1,73 @@
+shakyamouni_admin:
+    resource: "@ShakyamouniAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin
+
+shakyamouni_menu:
+    resource: "@ShakyamouniMenuBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+shakyamouni_site:
+    resource: "@ShakyamouniSiteBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+shakyamouni_user:
+    resource: "@ShakyamouniUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+_imagine:
+    resource: .
+    type:     imagine
+    
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"
+     prefix:   /admin
+     
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /admin/profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: admin/register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: admin/resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: admin/profile
+
+LexikMailerBundle:
+    resource: "@LexikMailerBundle/Resources/config/routing.xml"
+    prefix:   /admin
+    
+lexik_translation_edition:
+    resource: "@LexikTranslationBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+#login:
+#    pattern:   /login
+#    defaults:  { _controller: ShakyamouniUserBundle:Security:login }
+ 
+#login_check:
+#    pattern:   /login_check
+ 
+#logout:
+#    pattern:   /logout
+
+# Internal routing configuration to handle ESI
+# ****** WARNING ******
+# This route should be enabled with caution as it can open a security vulnerability
+# see http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released for more information
+# ****** WARNING ******
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal

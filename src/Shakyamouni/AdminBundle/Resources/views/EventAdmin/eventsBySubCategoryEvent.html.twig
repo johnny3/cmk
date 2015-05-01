@@ -1,0 +1,3 @@
+{% for event in events %}
+     <li><a href="{{ path('event_admin_show', { 'id': event.id }) }}">{{ event.title }}</a></li>
+{% endfor %}
