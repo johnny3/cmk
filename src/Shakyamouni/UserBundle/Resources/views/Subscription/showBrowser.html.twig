@@ -47,14 +47,14 @@
                                     <div id="shakyamouni_userbundle_subscriptioneventtype">
                                         <p>
                                             {{ form_label(form.firstname, 'subscription.first_name'|trans~':') }} <span class="flash-notice">*</span><br/>
-                                            {{ form_widget(form.firstname, { 'attr': {'class': 'text-input medium-input'} }) }}  {% if form_errors(form.firstname) %} <span class="input-notification error png_bg">{{ form_errors(form.firstname) }}</span> {% endif %}
+                                            {{ form_widget(form.firstname, { 'attr': {'class': 'text-input medium-input'} }) }}  {% if form_errors(form.firstname) %}{{ form_errors(form.firstname) }}{% endif %}
                                         </p>
 
                                         <p>
                                             {{ form_label(form.lastname, 'subscription.last_name'|trans~':') }} <span class="flash-notice">*</span><br/>
                                             {{ form_widget(form.lastname, { 'attr': {'class': 'text-input medium-input'} }) }}
 
-                                            {% if form_errors(form.lastname) %} <span class="input-notification error png_bg">{{ form_errors(form.lastname) }}</span> {% endif %}
+                                            {% if form_errors(form.lastname) %}{{ form_errors(form.lastname) }}{% endif %}
                                         </p>
 
                                         <p>
@@ -68,7 +68,7 @@
                                             {{ form_label(form.email, 'subscription.email'|trans~':') }} <span class="flash-notice">*</span><br/>
                                             {{ form_widget(form.email, { 'attr': {'class': 'text-input medium-input'} }) }}
 
-                                            {% if form_errors(form.email) %} <span class="input-notification error png_bg">{{ form_errors(form.email) }}</span> {% endif %}
+                                            {% if form_errors(form.email) %}{{ form_errors(form.email) }}{% endif %}
                                         </p>
 
                                         <h3><strong>{{ 'subscription.your_subscription'|trans() }}</strong></h3>
@@ -94,17 +94,15 @@
 
                                         <p id="knowledge">
                                             {{ form_label(form.knowledge, 'subscription.center_discover'|trans()) }}<br/>
-
                                             {{ form_widget(form.knowledge ) }}
-
-                                            {% if form_errors(form.knowledge) %} <span class="input-notification error png_bg">{{ form_errors(form.knowledge) }}</span> {% endif %}
+                                            {{ form_widget(form.other, { 'attr': {'class': 'text-input medium-input'} }) }}
                                         </p>
 
                                         <p>
                                             {{ form_label(form.isOptin, 'subscription.optin'|trans()) }}<br/>
                                             {{ form_widget(form.isOptin ) }}
 
-                                            {% if form_errors(form.isOptin) %} <span class="input-notification error png_bg">{{ form_errors(form.isOptin) }}</span> {% endif %}
+                                            {% if form_errors(form.isOptin) %}{{ form_errors(form.isOptin) }}{% endif %}
                                         </p>
                                     </div>
                                     <p>
@@ -121,4 +119,21 @@
         </div>
     </section>
     <div class="clearfix"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#shakyamouni_userbundle_subscriptioneventtype_other').hide();
+
+            $("input[name='shakyamouni_userbundle_subscriptioneventtype[knowledge]']").click(function () {
+                if ($(this).val() == 'autre') {
+                    $('#shakyamouni_userbundle_subscriptioneventtype_other').fadeIn();
+                } else {
+                    $('#shakyamouni_userbundle_subscriptioneventtype_other').fadeOut();
+                }
+            });
+            
+            
+        });
+    </script>
+
 {% endblock %}

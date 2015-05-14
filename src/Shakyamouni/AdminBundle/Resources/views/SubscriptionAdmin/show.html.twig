@@ -60,11 +60,18 @@
 
 <table class="record_properties">
     <tbody>
+        <tr>
+            <th><strong>Personne</strong></th>
+            <th><strong>Email</strong></th>
+            <th><strong>Origine connaissance centre</strong></th>
+            <th><strong>Information supplémentaire</strong></th>
+            <th><strong>prix payé</strong></th>
+        </tr>
         {% for subscriber in subscribers %}
             <tr>
                 <td>{{ subscriber.lastname }} {{ subscriber.firstname }} {% if subscriber.cellphone is not null %}({{subscriber.cellphone}}){% endif %}</td>
                 <td>{{ subscriber.email }}</td>
-                <td>{{ subscriber.knowledge }}</td>
+                <td>{{ subscriber.knowledge }} {% if ('autre' ==  subscriber.knowledge) %}: {{ subscriber.other }}{% endif %}</td>
                 <td>{{ subscriber.additionnalInformation }}</td>
                 <td>{{ subscriber.price }} €</td>
             </tr>

@@ -46,7 +46,8 @@ class SubscriptionEventType extends AbstractType
                     'multiple'    => false,
                     'empty_value' => false
                 ))
-                ->add('isOptin');
+                ->add('isOptin')
+                ->add('other');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

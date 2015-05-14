@@ -94,6 +94,13 @@ class SubscriptionEvent
      */
     private $isOptin;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="other", type="string", length=255, nullable=true)
+     */
+    private $other;
+
 
     /**
      * Get id
@@ -334,5 +341,28 @@ class SubscriptionEvent
     public function getIsOptin()
     {
         return $this->isOptin;
+    }
+
+    /**
+     * Set other
+     *
+     * @param string $other
+     * @return SubscriptionEvent
+     */
+    public function setOther($other)
+    {
+        $this->other = $other;
+
+        return $this;
+    }
+
+    /**
+     * Get other
+     *
+     * @return string 
+     */
+    public function getOther()
+    {
+        return $this->other;
     }
 }
