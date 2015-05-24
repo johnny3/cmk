@@ -1,7 +1,7 @@
 shakyamouni_admin:
     resource: "@ShakyamouniAdminBundle/Controller/"
     type:     annotation
-    prefix:   /admin
+    prefix:   /cmk-bo-path
 
 shakyamouni_menu:
     resource: "@ShakyamouniMenuBundle/Controller/"
@@ -24,18 +24,18 @@ _imagine:
     
 elfinder:
      resource: "@FMElfinderBundle/Resources/config/routing.yml"
-     prefix:   /admin
+     prefix:   /cmk-bo-path
      
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /admin/profile
+    prefix: /cmk-bo-path/profile
 
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: admin/register
+    prefix: cmk-bo-path/register
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
@@ -43,15 +43,15 @@ fos_user_resetting:
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: admin/profile
+    prefix: cmk-bo-path/profile
 
 LexikMailerBundle:
     resource: "@LexikMailerBundle/Resources/config/routing.xml"
-    prefix:   /admin
+    prefix:   /cmk-bo-path
     
 lexik_translation_edition:
     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
-    prefix:   /admin
+    prefix:   /cmk-bo-path
 
 #login:
 #    pattern:   /login
