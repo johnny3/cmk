@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * User controller.
  *
- * @Route("/admin/users")
+ * @Route("/cmk-bo-path/users")
  */
 class UserController extends Controller
 {

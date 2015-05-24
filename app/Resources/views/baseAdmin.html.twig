@@ -58,12 +58,14 @@
                         Bonjour <a href="{{path('fos_user_profile_edit')}}" title="Mettre à jour votre profil">{{ app.user.username }}</a>, bienvenue sur votre interface d'administration.<br />
                         <br />
                         <a href="{{path('homepage')}}" title="Voir le site" target="_blank">Voir le site</a> | <a href="{{path('fos_user_security_logout')}}" title="Déconnexion">Déconnexion</a>
-                    </div>        
+                    </div>
+                    
+                    {% set route = app.request.attributes.get('_route') %}
 
                     <ul id="main-nav">  <!-- Accordion Menu -->
 
                         <li>
-                            <a href="{{ path('homepage_admin_edit', { 'id': 1 }) }}" class="nav-top-item  no-submenu {% if app.request.pathinfo|slice(7, 8) == 'homepage' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+                            <a href="{{ path('homepage_admin_edit', { 'id': 1 }) }}" class="nav-top-item  no-submenu {% if route == 'homepage_admin_edit' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
                                 Home
                             </a>
 {#                            <ul>
@@ -73,78 +75,78 @@
                         </li>
                         
                         <li>
-                            <a href="{{ path('info_admin_edit', { 'id': 1 }) }}" class="nav-top-item  no-submenu {% if app.request.pathinfo|slice(7, 10) == 'info_admin' %}current{% endif %}">
+                            <a href="{{ path('info_admin_edit', { 'id': 1 }) }}" class="nav-top-item no-submenu {% if route == 'info_admin_edit' %}current{% endif %}">
                                 Informations du centre
                             </a>
                         </li>
                         
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 12) == 'slider_admin' %}current{% endif %}">
+                            <a href="#" class="nav-top-item {% if route|slice(0, 12) == 'slider_admin' %}current{% endif %}">
                                 Slider Page d'accueil
                             </a>
                             <ul>
-                                <li><a href="{{ path('slider_admin_new') }}">Nouvelle slide</a></li>
+                                <li><a class="{% if route == 'slider_admin_new' %}current{% endif %}" href="{{ path('slider_admin_new') }}">Nouvelle slide</a></li>
                                 {{ render(controller('ShakyamouniAdminBundle:SliderAdmin:list')) }}
                             </ul>
                         </li>
 
                         <li> 
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 14) == 'category_admin' %}current{% endif %}"> <!-- Add the class "current" to current menu item -->
+                            <a href="#" class="nav-top-item {% if route|slice(0, 14) == 'category_admin' %}current{% endif %}"> <!-- Add the class "current" to current menu item -->
                                 Menu principal
                             </a>
                             <ul>
-                                <li><a href="{{ path('category_admin') }}">Gérer les catégories</a></li>
+                                <li><a class="{% if route == 'category_admin' %}current{% endif %}" href="{{ path('category_admin') }}">Gérer les catégories</a></li>
                                 {{ render(controller('ShakyamouniAdminBundle:CategoryAdmin:list')) }}
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 17) == 'subcategory_admin' %}current{% endif %}">
+                            <a href="#" class="nav-top-item {% if route|slice(0, 17) == 'subcategory_admin' %}current{% endif %}">
                                 Niveau 1
                             </a>
                             <ul>
-                                <li><a href="{{ path('subcategory_admin') }}">Gérer les sous catégories</a></li>
+                                <li><a class="{% if route == 'subcategory_admin' %}current{% endif %}" href="{{ path('subcategory_admin') }}">Gérer les sous catégories</a></li>
                                 {{ render(controller('ShakyamouniAdminBundle:SubCategoryAdmin:list')) }}
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 22) == 'subcategoryevent_admin' %}current{% endif %}">
+                            <a href="#" class="nav-top-item {% if route|slice(0, 22) == 'subcategoryevent_admin' %}current{% endif %}">
                                 Catégories retraite le WE
                             </a>
                             <ul>
-                                <li><a href="{{ path('subcategoryevent_admin') }}">Gérer les catégories d'événements</a></li>
+                                <li><a class="{% if route == 'subcategoryevent_admin' %}current{% endif %}" href="{{ path('subcategoryevent_admin') }}">Gérer les catégories d'événements</a></li>
                                 {{ render(controller('ShakyamouniAdminBundle:SubCategoryEventAdmin:list')) }}
                             </ul>
                         </li>
                         
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 11) == 'event_admin' %}current{% endif %}">
+                            <a href="#" class="nav-top-item {% if route|slice(0, 11) == 'event_admin' %}current{% endif %}">
                                 Evénements (cat. Retraite le we)
                             </a>
                             <ul>
-                                <li><a href="{{ path('event_admin') }}">Gérer les événements</a></li>
+                                <li><a class="{% if route == 'event_admin' %}current{% endif %}" href="{{ path('event_admin') }}">Gérer les événements</a></li>
                                 {{ render(controller('ShakyamouniAdminBundle:EventAdmin:list')) }}
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 13) == 'article_admin' %}current{% endif %}">
+                            <a href="#" class="nav-top-item {% if route|slice(0, 13) == 'article_admin' %}current{% endif %}">
                                 Articles
                             </a>
                             <ul>
-                                <li><a href="{{ path('article_admin') }}">Gérer les articles</a></li>
+                                <li><a class="{% if route == 'article_admin' %}current{% endif %}" href="{{ path('article_admin') }}">Gérer les articles</a></li>
                                 {{ render(controller('ShakyamouniAdminBundle:ArticleAdmin:list')) }}
                             </ul>
                         </li>
                         
                         <li>
-                            <a href="{{path('subscription_admin')}}" class="nav-top-item {% if app.request.pathinfo|slice(7, 18) == 'subscription_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+                            <a href="{{path('subscription_admin')}}" class="nav-top-item {% if route|slice(0, 18) == 'subscription_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
                                 Formulaires de réservation
                             </a>
                             <ul>
-                                <li><a href="{{ path('subscription_admin') }}">Gérer les formulaires</a></li>
-                                <li><a href="{{ path('subscription_admin_new') }}">Rajouter un formulaire</a></li>
+                                <li><a class="{% if route == 'subscription_admin' %}current{% endif %}" href="{{ path('subscription_admin') }}">Gérer les formulaires</a></li>
+                                <li><a class="{% if route == 'subcription_admin_new' %}current{% endif %}" href="{{ path('subscription_admin_new') }}">Rajouter un formulaire</a></li>
                             </ul>
                         </li>
 
@@ -159,12 +161,12 @@
                         </li>#}
                         
                         <li>
-                            <a href="{{path('calendar_admin')}}" class="nav-top-item {% if app.request.pathinfo|slice(7, 14) == 'calendar_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+                            <a href="{{path('calendar_admin')}}" class="nav-top-item {% if route|slice(0, 14) == 'calendar_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
                                 Calendrier
                             </a>
                             <ul>
-                                <li><a href="{{ path('calendar_admin') }}">Gérer les PM</a></li>
-                                <li><a href="{{ path('calendar_admin_new') }}">Rajouter un PM</a></li>
+                                <li><a class="{% if route == 'calendar_admin' %}current{% endif %}" href="{{ path('calendar_admin') }}">Gérer les PM</a></li>
+                                <li><a class="{% if route == 'calendar_admin_new' %}current{% endif %}" href="{{ path('calendar_admin_new') }}">Rajouter un PM</a></li>
                             </ul>
                         </li>
 
@@ -175,34 +177,34 @@
                         </li>   #}
                         
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 24) == 'pictures_slideshow_admin' or app.request.pathinfo|slice(7, 15) == 'slideshow_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+                            <a href="#" class="nav-top-item {% if route|slice(0, 24) == 'pictures_slideshow_admin' or route|slice(0, 15) == 'slideshow_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
                                 Galeries
                             </a>
                             <ul>
-                                <li><a href="{{ path('slideshow_admin') }}">Les galeries</a></li>
-                                <li><a href="{{ path('pictures_slideshow_admin') }}">Les images des galeries</a></li>
+                                <li><a class="{% if route == 'slideshow_admin' %}current{% endif %}" href="{{ path('slideshow_admin') }}">Les galeries</a></li>
+                                <li><a class="{% if route == 'pictures_slideshow_admin' %}current{% endif %}" href="{{ path('pictures_slideshow_admin') }}">Les images des galeries</a></li>
                             </ul>
                         </li>
                         
                         <li>
-                            <a href="#" class="nav-top-item {% if app.request.pathinfo|slice(7, 16) == 'newsletter_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+                            <a href="#" class="nav-top-item {% if route|slice(0, 16) == 'newsletter_admin' or route == 'newslettersubscribertest_admin' %}current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
                                 Mails & Newsletter
                             </a>
                             <ul>
-                                <li><a href="{{ path('newsletter_admin') }}">Gérer les mails</a></li>
-                                <li><a href="{{ path('newsletter_admin_new') }}">Créer un mail</a></li>
-                                <li><a href="{{ path('newslettersubscribertest_admin') }}">Adresse des testeurs</a></li>
+                                <li><a class="{% if route == 'newsletter_admin' %}current{% endif %}" href="{{ path('newsletter_admin') }}">Gérer les mails</a></li>
+                                <li><a class="{% if route == 'newsletter_admin_new' %}current{% endif %}" href="{{ path('newsletter_admin_new') }}">Créer un mail</a></li>
+                                <li><a class="{% if route == 'newslettersubscribertest_admin' %}current{% endif %}" href="{{ path('newslettersubscribertest_admin') }}">Adresse des testeurs</a></li>
                             </ul>
                         </li>
                         
                         <li>
-                            <a href="{{ path('lexik_mailer.email_list') }}" class="nav-top-item no-submenu {% if app.request.pathinfo|slice(7, 17) == 'admin/mail' %}current{% endif %}">
+                            <a href="{{ path('lexik_mailer.email_list') }}" class="nav-top-item no-submenu {% if route|slice(0, 17) == 'admin/mail' %}current{% endif %}">
                                 Templates des mails
                             </a>
                         </li>
                         
                         <li>
-                            <a href="{{ path('newslettersubscriber_admin') }}" class="nav-top-item no-submenu {% if app.request.pathinfo|slice(7, 26) == 'newslettersubscriber_admin' %}current{% endif %}">
+                            <a href="{{ path('newslettersubscriber_admin') }}" class="nav-top-item no-submenu {% if route|slice(0, 26) == 'newslettersubscriber_admin' %}current{% endif %}">
                                 Abonnés Newsletter
                             </a>
                         </li>
@@ -216,17 +218,18 @@
                         <li>
                             <a href="#" class="nav-top-item 
                                     {% 
-                                        if app.request.pathinfo|slice(7, 7) == 'profile' 
-                                        or app.request.pathinfo|slice(7, 8) == 'register' 
-                                        or app.request.pathinfo|slice(7, 5) == 'users' 
+                                        if route|slice(0, 21) == 'fos_user_profile_edit' 
+                                        or route|slice(0, 30) == 'fos_user_registration_register' 
+                                        or route|slice(0, 9) == 'user_list' 
+                                        or route|slice(0, 24) == 'fos_user_change_password' 
                                     %}
                                     current{% endif %}">
                                 Profils
                             </a>
                             <ul>
-                                <li><a class="{% if app.request.pathinfo|slice(7, 5) == 'users' %}current{% endif %}" href="{{path('user_list')}}">Liste des utilisateurs</a></li>
-                                <li><a class="{% if app.request.pathinfo|slice(7, 12) == 'profile/edit' %}current{% endif %}" href="{{path('fos_user_profile_edit')}}">Changer son email ou son nom</a></li>
-                                <li><a class="{% if app.request.pathinfo|slice(7, 23) == 'profile/change-password' %}current{% endif %}" href="{{path('fos_user_change_password')}}">Changer son mot de passe</a></li>
+                                <li><a class="{% if route|slice(0, 9) == 'user_list' %}current{% endif %}" href="{{path('user_list')}}">Liste des utilisateurs</a></li>
+                                <li><a class="{% if route|slice(0, 21) == 'fos_user_profile_edit' %}current{% endif %}" href="{{path('fos_user_profile_edit')}}">Changer son email ou son nom</a></li>
+                                <li><a class="{% if route|slice(0, 24) == 'fos_user_change_password' %}current{% endif %}" href="{{path('fos_user_change_password')}}">Changer son mot de passe</a></li>
                             </ul>
                         </li>
 

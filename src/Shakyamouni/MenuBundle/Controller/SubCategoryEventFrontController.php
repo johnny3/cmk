@@ -44,7 +44,7 @@ class SubCategoryEventFrontController extends Controller {
             if ('dev' == $this->get('kernel')->getEnvironment()) {
                 throw $this->createNotFoundException('Unable to find SubCategoryEvent entity.');
             } else {
-                $response = new Response();
+//                $response = new Response();
                 $response = $this->render('ShakyamouniSiteBundle:Errors:error.404.html.twig', array());
                 $response->setStatusCode(404);
                 return $response;
