@@ -33,107 +33,123 @@
     {% endspaceless %}
 {% endblock choice_widget %}
 
-{% block body %}
-    <section id="content" class="sbr">
-        <div class="container clearfix">
-            <div class="sixteen columns row">
-                <div class="et-box et-shadow">
-                    <div class="et-box-content">
-                        <div class="body-text">
-                            <h2>{{ entity.title }}</h2><br/>
-                            <h3>{{ entity.subtitle }}</h3><br/>
-                            <article>
-                                <form action="{{ path('subscription_show', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
-                                    <div id="shakyamouni_userbundle_subscriptioneventtype">
-                                        <p>
-                                            {{ form_label(form.firstname, 'subscription.first_name'|trans~':') }} <span class="flash-notice">*</span><br/>
-                                            {{ form_widget(form.firstname, { 'attr': {'class': 'text-input medium-input'} }) }}  {% if form_errors(form.firstname) %}{{ form_errors(form.firstname) }}{% endif %}
-                                        </p>
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        <ul>
+            {%- for error in errors -%}
+            <li><span class="flash-notice">{{ error.message }}</span></li>
+                {%- endfor -%}
+        </ul>
+        {%- endif %}
+        {%- endblock form_errors %}
 
-                                        <p>
-                                            {{ form_label(form.lastname, 'subscription.last_name'|trans~':') }} <span class="flash-notice">*</span><br/>
-                                            {{ form_widget(form.lastname, { 'attr': {'class': 'text-input medium-input'} }) }}
+        {% block body %}
+            <section id="content" class="sbr">
+                <div class="container clearfix">
+                    <div class="sixteen columns row">
+                        <div class="et-box et-shadow">
+                            <div class="et-box-content">
+                                <div class="body-text">
+                                    <h2>{{ entity.title }}</h2><br/>
+                                    <h3>{{ entity.subtitle }}</h3><br/>
+                                    <article>
+                                        <form action="{{ path('subscription_show', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
+                                            <div id="shakyamouni_userbundle_subscriptioneventtype">
+                                                <p>
+                                                    {{ form_label(form.firstname, 'subscription.first_name'|trans~':') }} <span class="flash-notice">*</span><br/>
+                                                    {{ form_widget(form.firstname, { 'attr': {'class': 'text-input medium-input'} }) }}  {% if form_errors(form.firstname) %}{{ form_errors(form.firstname) }}{% endif %}
+                                                </p>
 
-                                            {% if form_errors(form.lastname) %}{{ form_errors(form.lastname) }}{% endif %}
-                                        </p>
+                                                <p>
+                                                    {{ form_label(form.lastname, 'subscription.last_name'|trans~':') }} <span class="flash-notice">*</span><br/>
+                                                    {{ form_widget(form.lastname, { 'attr': {'class': 'text-input medium-input'} }) }}
 
-                                        <p>
-                                            {{ form_label(form.cellphone, 'subscription.phone'|trans~':') }}<br/>
-                                            {{ form_widget(form.cellphone, { 'attr': {'class': 'text-input medium-input'} }) }}
+                                                    {% if form_errors(form.lastname) %}{{ form_errors(form.lastname) }}{% endif %}
+                                                </p>
 
-                                            {% if form_errors(form.cellphone) %} <span class="input-notification error png_bg">{{ form_errors(form.cellphone) }}</span> {% endif %}
-                                        </p>
+                                                <p>
+                                                    {{ form_label(form.cellphone, 'subscription.phone'|trans~':') }}<br/>
+                                                    {{ form_widget(form.cellphone, { 'attr': {'class': 'text-input medium-input'} }) }}
 
-                                        <p>
-                                            {{ form_label(form.email, 'subscription.email'|trans~':') }} <span class="flash-notice">*</span><br/>
-                                            {{ form_widget(form.email, { 'attr': {'class': 'text-input medium-input'} }) }}
+                                                    {% if form_errors(form.cellphone) %} <span class="input-notification error png_bg">{{ form_errors(form.cellphone) }}</span> {% endif %}
+                                                </p>
 
-                                            {% if form_errors(form.email) %}{{ form_errors(form.email) }}{% endif %}
-                                        </p>
+                                                <p>
+                                                    {{ form_label(form.email, 'subscription.email'|trans~':') }} <span class="flash-notice">*</span><br/>
+                                                    {{ form_widget(form.email, { 'attr': {'class': 'text-input medium-input'} }) }}
 
-                                        <h3><strong>{{ 'subscription.your_subscription'|trans() }}</strong></h3>
-                                        <span style="display:block; margin-top:3px;">{{ 'subscription.one_form_per_person'|trans()|raw }}</span>
-                                        {% if entity.percentage != 100 %}
-                                            <span style="display:block; margin-top:3px;">{{ 'subscription.arrhes'|trans({'%amount%': entity.percentage })|raw }}</span>
-                                        {% endif %}
+                                                    {% if form_errors(form.email) %}{{ form_errors(form.email) }}{% endif %}
+                                                </p>
 
-                                        <p>
-                                            {{ form_label(form.price, 'subscription.prices'|trans~':') }} <span class="flash-notice">*</span><br/>
-                                            {{ form_widget(form.price) }}
+                                                <h3><strong>{{ 'subscription.your_subscription'|trans() }}</strong></h3>
+                                                <span style="display:block; margin-top:3px;">{{ 'subscription.one_form_per_person'|trans()|raw }}</span>
+                                                {% if entity.percentage != 100 %}
+                                                    <span style="display:block; margin-top:3px;">{{ 'subscription.arrhes'|trans({'%amount%': entity.percentage })|raw }}</span>
+                                                {% endif %}
 
-                                            {% if form_errors(form.price) %} <span class="input-notification error png_bg">{{ form_errors(form.price) }}</span> {% endif %}
-                                        </p>
+                                                <p>
+                                                    {{ form_label(form.price, 'subscription.prices'|trans~':') }} <span class="flash-notice">*</span><br/>
+                                                    {{ form_widget(form.price) }}
 
-                                        <p>
-                                            <strong>{{ form_label(form.additionnalInformation, 'subscription.additional_information'|trans~':') }}</strong><br/>
-                                            {{ 'subscription.suggestion_newsletter'|trans()|raw }}<br/>
-                                            {{ form_widget(form.additionnalInformation) }}
+                                                    {% if form_errors(form.price) %} <span class="input-notification error png_bg">{{ form_errors(form.price) }}</span> {% endif %}
+                                                </p>
 
-                                            {% if form_errors(form.additionnalInformation) %} <span class="input-notification error png_bg">{{ form_errors(form.additionnalInformation) }}</span> {% endif %}
-                                        </p>
+                                                <p>
+                                                    <strong>{{ form_label(form.additionnalInformation, 'subscription.additional_information'|trans~':') }}</strong><br/>
+                                                    {{ 'subscription.suggestion_newsletter'|trans()|raw }}<br/>
+                                                    {{ form_widget(form.additionnalInformation) }}
 
-                                        <p id="knowledge">
-                                            {{ form_label(form.knowledge, 'subscription.center_discover'|trans()) }}<br/>
-                                            {{ form_widget(form.knowledge ) }}
-                                            {{ form_widget(form.other, { 'attr': {'class': 'text-input medium-input'} }) }}
-                                        </p>
+                                                    {% if form_errors(form.additionnalInformation) %}{{ form_errors(form.additionnalInformation) }}{% endif %}
+                                                </p>
 
-                                        <p>
-                                            {{ form_label(form.isOptin, 'subscription.optin'|trans()) }}<br/>
-                                            {{ form_widget(form.isOptin ) }}
+                                                <p id="knowledge">
+                                                    {{ form_label(form.knowledge, 'subscription.center_discover'|trans()) }}<br/>
+                                                    {{ form_widget(form.knowledge ) }}
+                                                    {{ form_widget(form.other, { 'attr': {'class': 'text-input medium-input'} }) }}
+                                                    {% if form_errors(form.other) %}{{ form_errors(form.other) }}{% endif %}
+                                                </p>
 
-                                            {% if form_errors(form.isOptin) %}{{ form_errors(form.isOptin) }}{% endif %}
-                                        </p>
-                                    </div>
-                                    <p>
-                                        <button class="button-paiement" type="submit">{{ 'subscription.payment_button'|trans() }}</button>
-                                    </p>
-                                    {{ form_rest(form) }}
-                                </form>
-                            </article>
-                            <div class="clearfix"></div>
+                                                <p>
+                                                    {{ form_label(form.isOptin, 'subscription.optin'|trans()) }}<br/>
+                                                    {{ form_widget(form.isOptin ) }}
+
+                                                    {% if form_errors(form.isOptin) %}{{ form_errors(form.isOptin) }}{% endif %}
+                                                </p>
+                                            </div>
+                                            <p>
+                                                <button class="button-paiement" type="submit">{{ 'subscription.payment_button'|trans() }}</button>
+                                            </p>
+                                            {{ form_rest(form) }}
+                                        </form>
+                                    </article>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <div class="clearfix"></div>
+            </section>
+            <div class="clearfix"></div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#shakyamouni_userbundle_subscriptioneventtype_other').hide();
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#shakyamouni_userbundle_subscriptioneventtype_other').hide();
+                    if ($("input[name='shakyamouni_userbundle_subscriptioneventtype[knowledge]']:checked").val() == 'autre') {
+                        $('#shakyamouni_userbundle_subscriptioneventtype_other').show();
+                    } else {
+                        $('#shakyamouni_userbundle_subscriptioneventtype_other').hide();
+                    }
 
-            $("input[name='shakyamouni_userbundle_subscriptioneventtype[knowledge]']").click(function () {
-                if ($(this).val() == 'autre') {
-                    $('#shakyamouni_userbundle_subscriptioneventtype_other').fadeIn();
-                } else {
-                    $('#shakyamouni_userbundle_subscriptioneventtype_other').fadeOut();
-                }
-            });
-            
-            
-        });
-    </script>
+                    $("input[name='shakyamouni_userbundle_subscriptioneventtype[knowledge]']").click(function () {
+                        if ($(this).val() == 'autre') {
+                            $('#shakyamouni_userbundle_subscriptioneventtype_other').fadeIn();
+                        } else {
+                            $('#shakyamouni_userbundle_subscriptioneventtype_other').fadeOut();
+                        }
+                    });
 
-{% endblock %}
+
+                });
+            </script>
+
+        {% endblock %}

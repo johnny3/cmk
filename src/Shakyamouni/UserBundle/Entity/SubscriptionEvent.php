@@ -4,6 +4,7 @@ namespace Shakyamouni\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * SubscriptionEvent
@@ -74,19 +75,20 @@ class SubscriptionEvent
      * @ORM\Column(name="knowledge", type="string", length=255, nullable=true)
      */
     private $knowledge;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Shakyamouni\AdminBundle\Entity\Subscription", inversedBy="subscriptionEvent")
      * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id", nullable=false)
      */
     private $subscription;
-        
+
     /**
      * @var boolean
      *
      * @ORM\Column(name="has_payed", type="boolean", nullable=false)
      */
     private $hasPayed;
+
     /**
      * @var boolean
      *
@@ -100,7 +102,6 @@ class SubscriptionEvent
      * @ORM\Column(name="other", type="string", length=255, nullable=true)
      */
     private $other;
-
 
     /**
      * Get id
@@ -121,7 +122,7 @@ class SubscriptionEvent
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
 
@@ -144,7 +145,7 @@ class SubscriptionEvent
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
@@ -167,7 +168,7 @@ class SubscriptionEvent
     public function setCellphone($cellphone)
     {
         $this->cellphone = $cellphone;
-    
+
         return $this;
     }
 
@@ -190,7 +191,7 @@ class SubscriptionEvent
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -213,7 +214,7 @@ class SubscriptionEvent
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
@@ -236,7 +237,7 @@ class SubscriptionEvent
     public function setAdditionnalInformation($additionnalInformation)
     {
         $this->additionnalInformation = $additionnalInformation;
-    
+
         return $this;
     }
 
@@ -259,7 +260,7 @@ class SubscriptionEvent
     public function setKnowledge($knowledge)
     {
         $this->knowledge = $knowledge;
-    
+
         return $this;
     }
 
@@ -282,7 +283,7 @@ class SubscriptionEvent
     public function setSubscription(\Shakyamouni\AdminBundle\Entity\Subscription $subscription)
     {
         $this->subscription = $subscription;
-    
+
         return $this;
     }
 
@@ -305,7 +306,7 @@ class SubscriptionEvent
     public function setHasPayed($hasPayed)
     {
         $this->hasPayed = $hasPayed;
-    
+
         return $this;
     }
 
@@ -318,8 +319,7 @@ class SubscriptionEvent
     {
         return $this->hasPayed;
     }
-    
-    
+
     /**
      * Set isOptin
      *
@@ -329,7 +329,7 @@ class SubscriptionEvent
     public function setIsOptin($isOptin)
     {
         $this->isOptin = $isOptin;
-    
+
         return $this;
     }
 
@@ -364,5 +364,18 @@ class SubscriptionEvent
     public function getOther()
     {
         return $this->other;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        // Vérifie si le nom est bidon
+        if ($this->getKnowledge() == 'autre' && $this->getOther() == null) {
+            $context->addViolationAt(
+                'other', "Vous devez remplir ce champ si vous avez coché 'autre'", array(), null
+            );
+        }
     }
 }
