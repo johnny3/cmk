@@ -2,7 +2,8 @@
 
 {% form_theme form _self %}
 
-{% block choice_widget %}
+{% block _shakyamouni_userbundle_subscriptioneventtype_knowledge_row %}
+    {{ 'subscription.center_discover'|trans() }}<br/>
     {% spaceless %}
         {% if expanded %}
             <div {{ block('widget_container_attributes') }}>
@@ -31,7 +32,7 @@
             </select>
         {% endif %}
     {% endspaceless %}
-{% endblock choice_widget %}
+{% endblock _shakyamouni_userbundle_subscriptioneventtype_knowledge_row %}
 
 {% block form_errors -%}
     {% if errors|length > 0 -%}
@@ -103,8 +104,7 @@
                                                 </p>
 
                                                 <p id="knowledge">
-                                                    {{ form_label(form.knowledge, 'subscription.center_discover'|trans()) }}<br/>
-                                                    {{ form_widget(form.knowledge ) }}
+                                                    {{ form_row(form.knowledge) }}
                                                     {{ form_widget(form.other, { 'attr': {'class': 'text-input medium-input'} }) }}
                                                     {% if form_errors(form.other) %}{{ form_errors(form.other) }}{% endif %}
                                                 </p>

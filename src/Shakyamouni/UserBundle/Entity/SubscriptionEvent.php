@@ -371,7 +371,6 @@ class SubscriptionEvent
      */
     public function validate(ExecutionContextInterface $context)
     {
-        // Vérifie si le nom est bidon
         if ($this->getKnowledge() == 'autre' && $this->getOther() == null) {
             $context->addViolationAt(
                 'other', "Vous devez remplir ce champ si vous avez coché 'autre'", array(), null
